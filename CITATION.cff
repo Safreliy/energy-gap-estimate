@@ -1,0 +1,21 @@
+﻿cff-version: 1.2.0
+title: "Energy Gap Experiments (Moons + Breast Cancer)"
+message: "If you use this repository, please cite the associated Zenodo publication."
+type: software
+authors:
+  - family-names: "Baturin"
+    given-names: "Saveliy"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.18607965"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Baturin"
+      given-names: "Saveliy"
+  title: "Asymptotic Smoothing of the Lipschitz Loss Landscape in Overparameterized One-Hidden-Layer ReLU Networks"
+  journal: "Zenodo"
+  year: 2026
+  doi: "10.5281/zenodo.18607965"
+  url: "https://doi.org/10.5281/zenodo.18607965"
+license: "CC-BY-4.0"
