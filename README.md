@@ -6,7 +6,11 @@ The CSV outputs are intended for citation in the paper.
 ## Associated publication
 This repository accompanies the preprint:
 
-Saveliy Baturin (2026). *Asymptotic Smoothing of the Lipschitz Loss Landscape in Overparameterized One-Hidden-Layer ReLU Networks*. Zenodo. https://doi.org/10.5281/zenodo.18607965
+Saveliy Baturin (2026). *Asymptotic Smoothing of the Lipschitz Loss Landscape in Overparameterized One-Hidden-Layer ReLU Networks*. arXiv:2602.17596. https://arxiv.org/abs/2602.17596
+
+Archived release record:
+
+Zenodo DOI: https://doi.org/10.5281/zenodo.18607965
 
 ## Method at a glance
 - Train multiple independent models of the same width.
@@ -41,18 +45,19 @@ The CSV files contain:
 If you use this code or generated outputs, please cite:
 
 ```bibtex
-@article{https://doi.org/10.5281/zenodo.18607965,
-  doi = {10.5281/ZENODO.18607965},
-  url = {https://zenodo.org/doi/10.5281/zenodo.18607965},
-  author = {Baturin, Saveliy},
+@misc{baturin2026asymptoticsmoothinglipschitzloss,
   title = {Asymptotic Smoothing of the Lipschitz Loss Landscape in Overparameterized One-Hidden-Layer ReLU Networks},
-  publisher = {Zenodo},
-  year = {2026}
+  author = {Baturin, Saveliy},
+  year = {2026},
+  eprint = {2602.17596},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG},
+  url = {https://arxiv.org/abs/2602.17596}
 }
 ```
 
 ## Reproducibility note
-For exact reproducibility, use the git commit/tag corresponding to the Zenodo release DOI above.
+For exact reproducibility, use the git commit/tag corresponding to the arXiv preprint version and the Zenodo archive DOI above.
 
 ## Notes
 - RNG seeds are fixed in code.
