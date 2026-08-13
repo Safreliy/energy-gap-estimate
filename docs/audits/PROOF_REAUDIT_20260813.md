@@ -9,14 +9,15 @@ Status labels are deliberately strict: `THM` means established in
    `1 <= l <= m`, and every `r >= 0`, a continuous admissible path has the
    explicit loss-consistent compression/bridge upper bound.
 2. `THM` Fixed level: for `n >= 2` and fixed `lambda > e_infinity`, the
-   uniform thickening is `O(m^(-1/(n-1)))`; for `n=1` it is eventually zero.
+   uniform thickening is `O(m^(-1/(n-1)))`; for `n=1` it is zero for every
+   `m>=4`.
 3. `THM` Objective approximation: `e(l)-e_infinity = O(l^(-1/2))` under the
    standing hypotheses, with no target-class assumption.
 4. `THM` Moving level: for bounded `lambda_m >= e(m)`, thickening tends to
    zero; if `e(l)-e_infinity=O(l^(-s))`, the rate for `n>=2` is
    `O(m^(-s/((n-1)s+1)))`.
-5. `THM` Unconditional specialization: the preceding sampling rate gives
-   `O(m^(-1/(n+1)))` for `n>=2`; for `n=1` thickening is eventually zero.
+5. `THM` Standing-assumption specialization: the preceding sampling rate gives
+   `O(m^(-1/(n+1)))` for `n>=2`; for `n=1` thickening is zero for every `m>=4`.
 
 ## Dependency DAG
 
@@ -46,7 +47,7 @@ closed first-layer ball
            |              `-- approximation/compression trade-off
            |                       `-- moving-level rates
            `-- n=1 two-ray exact compression
-                  `-- eventual exact connectivity
+                  `-- exact connectivity for m>=4
 ```
 
 ## First-failure audit and repairs

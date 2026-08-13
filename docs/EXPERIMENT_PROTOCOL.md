@@ -24,24 +24,24 @@ python -m theory_experiments.plot_results --results results/reviewer_smoke
 ```
 
 The smoke configuration is a software check only. Its slopes and plots must not
-be reported in the paper.
-
-Run the pilot before committing compute to the main configuration:
+be reported in the paper. The frozen Huber computation uses the three
+dimension-split `configs/reviewer_main_gpu_n*.json` configurations. Run each
+one with an output directory having the same stem; for example,
 
 ```powershell
 python -m theory_experiments.run_experiment `
-  --config configs/reviewer_pilot.json `
-  --output results/reviewer_pilot
-python -m theory_experiments.plot_results --results results/reviewer_pilot
+  --config configs/reviewer_main_gpu_n2.json `
+  --output results/reviewer_main_gpu_n2
 ```
 
-Freeze the main configuration before looking at its outcomes, then run:
+After all three dimensions complete, validate the balanced design and generate
+the manuscript figures and table with:
 
 ```powershell
-python -m theory_experiments.run_experiment `
-  --config configs/reviewer_main.json `
-  --output results/reviewer_main
-python -m theory_experiments.plot_results --results results/reviewer_main
+python -m theory_experiments.analyze_main_results `
+  --results-root results `
+  --analysis-dir results/reviewer_main_analysis `
+  --article-dir jamc_article
 ```
 
 For the pre-specified binary-cross-entropy robustness rerun, use the three

@@ -6,8 +6,9 @@ bias-free model and regularized objective in the theorem. It measures
 finite-distribution objective values, constructive neuron compression, and
 upper bounds for returned path barriers over a sequence of widths.
 
-Read `EXPERIMENT_AUDIT.md` for the code audit and `EXPERIMENT_PROTOCOL.md` for
-the frozen-run workflow.
+Read the [`experiment audit`](docs/audits/EXPERIMENT_AUDIT.md) for the code
+review and the [`frozen-run protocol`](docs/EXPERIMENT_PROTOCOL.md) for the
+reproduction workflow.
 
 ## Associated publication
 
@@ -41,18 +42,23 @@ https://doi.org/10.5281/zenodo.18607965. Those records predate the present audit
 ## Repository map
 
 - `theory_experiments/`: canonical NumPy implementation.
-- `configs/reviewer_smoke.json`: fast correctness smoke run.
-- `configs/reviewer_pilot.json`: pilot for budget and sensitivity checks.
-- `configs/reviewer_main_gpu_n*.json`: completed dimension-split frozen journal run.
+- `configs/reviewer_smoke.json`: fast Huber correctness run.
+- `configs/reviewer_cross_entropy_smoke.json`: fast binary-cross-entropy run.
+- `configs/reviewer_main_gpu_n*.json`: completed dimension-split Huber run.
+- `configs/reviewer_cross_entropy_gpu_n*.json`: completed dimension-split
+  binary-cross-entropy run.
 - `tests/`: domain, compression, path, certificate, and optimizer invariants.
 - `results/`: frozen primary, cross-loss, and dense-endpoint artifacts used by
   the manuscript analyses.
+- `docs/`: frozen-run protocol, reproducibility manifest, and resolved audit
+  notes.
 - `jamc_article/`: revised LaTeX source, compiled paper, supplement, generated
   tables, vector figures, and resolved proof-audit notes.
-- `dss.py` and the two notebooks: legacy PyTorch implementation retained for
-  provenance and optional algorithm comparison.
-- `energy_gap_*_percentiles.csv`: historical pre-fix outputs; **not valid
-  evidence and not for citation**.
+- `legacy/`: historical notebooks and their corrected standalone DSS helper,
+  retained for provenance but not used by the article.
+
+Historical pre-fix `energy_gap_*_percentiles.csv` tables are not valid evidence,
+are excluded from the public tree, and must not be cited.
 
 ## Quick smoke run
 
@@ -118,7 +124,8 @@ diameter-based objective certificate on every record.
 ## Citation
 
 The public frozen directories include their tabular records, metadata, and
-`states_and_paths.npz` archives; `REPRODUCIBILITY_ARCHIVE_MANIFEST.md` lists the
+`states_and_paths.npz` archives; the
+[`reproducibility manifest`](docs/REPRODUCIBILITY_ARCHIVE_MANIFEST.md) lists the
 exact evidentiary snapshot. The older Zenodo DOI predates this revision. Cite
 the revised manuscript and the repository commit used in an analysis. Do not
 cite the historical pre-fix CSV files.

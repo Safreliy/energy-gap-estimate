@@ -18,18 +18,18 @@ This supplement accompanies the manuscript ``From Approximation Rates to Loss-La
 
 \section*{Status of the computational diagnostic}
 
-The exploratory experiments use Dynamic String Sampling (DSS), a recursive construction of a piecewise-linear path introduced by Freeman and Bruna in \emph{Topology and Geometry of Half-Rectified Network Optimization} (ICLR 2017, \url{https://openreview.net/forum?id=Bk0FWVcgx}). Their greedy algorithm inserts an interpolated model at a high point of a segment, trains that model below a prescribed level, and recursively treats the two new segments. Our journal implementation preserves this search principle but is not an unmodified copy: it uses adaptive grids, a global-Lipschitz mesh correction, explicit terminal statuses, and a final re-evaluation of every returned segment. A reproducibility audit found that the previous local implementation reported the minimum among unresolved terminal-segment exceedances when recursion stopped. The objective of a returned path must instead be its maximum over all final segments. The shared implementation in \texttt{dss.py} and the theorem-aligned implementation in \texttt{theory\_experiments/paths.py} now report that maximum.
+The exploratory experiments use Dynamic String Sampling (DSS), a recursive construction of a piecewise-linear path introduced by Freeman and Bruna in \emph{Topology and Geometry of Half-Rectified Network Optimization} (ICLR 2017, \url{https://openreview.net/forum?id=Bk0FWVcgx}). Their greedy algorithm inserts an interpolated model at a high point of a segment, trains that model below a prescribed level, and recursively treats the two new segments. Our journal implementation preserves this search principle but is not an unmodified copy: it uses adaptive grids, a global-Lipschitz mesh correction, explicit terminal statuses, and a final re-evaluation of every returned segment. A reproducibility audit found that the previous local implementation reported the minimum among unresolved terminal-segment exceedances when recursion stopped. The objective of a returned path must instead be its maximum over all final segments. The historical implementation in \texttt{legacy/dss.py} and the theorem-aligned implementation in \texttt{theory\_experiments/paths.py} now report that maximum.
 
-The old notebook CSV files were produced by the earlier aggregation and cannot be corrected without the intermediate trained paths. They are retained as historical development artifacts but are not used as evidence in the revised manuscript. The reported tables and figures instead come from the frozen theory-aligned run completed on 12 August 2026 and stored in the three \texttt{reviewer\_main\_gpu\_n*} result directories.
+The old notebook CSV files were produced by the earlier aggregation and cannot be corrected without the intermediate trained paths. They remain in Git history for provenance but are excluded from the current public tree and are not used as evidence in the revised manuscript. The reported tables and figures instead come from the frozen theory-aligned run completed on 12 August 2026 and stored in the three \texttt{reviewer\_main\_gpu\_n*} result directories.
 
 \section*{Rerun protocol}
 
 The two historical notebook pipelines are:
 \begin{enumerate}
-\item \texttt{0\_energy\_gap\_experiment.ipynb} for Two Moons regression;
-\item \texttt{1\_energy\_gap\_cancer\_experiment.ipynb} for breast-cancer classification.
+\item \texttt{legacy/0\_energy\_gap\_experiment.ipynb} for Two Moons regression;
+\item \texttt{legacy/1\_energy\_gap\_cancer\_experiment.ipynb} for breast-cancer classification.
 \end{enumerate}
-The shared DSS implementation is in \texttt{dss.py}. The previous configuration, which can be used as a baseline for the corrected rerun, was:
+Their standalone DSS implementation is in \texttt{legacy/dss.py}. The previous configuration, which can be used as a baseline for the corrected rerun, was:
 \begin{enumerate}
 \item widths $[20,200]$;
 \item 1000 independently trained models per width and 200 sampled pairs;
@@ -124,6 +124,6 @@ where $b$ is the number of permuted statistics at least as extreme as the observ
 
 The legacy notebook code includes biases, whereas the theorem is stated for the bias-free model. It also enforces row normalization after optimizer steps rather than Euclidean-ball projection. Numerical evidence from that legacy pipeline should therefore be described as a qualitative diagnostic rather than as a direct instantiation of the theorem.
 
-This warning applies to \texttt{dss.py} and the historical notebooks. The canonical pipeline in the \texttt{theory\_experiments} directory removes both mismatches. The manuscript's reported binary-cross-entropy robustness check uses the synthetic ridge-teacher design, not the historical breast-cancer notebook.
+This warning applies to \texttt{legacy/dss.py} and the historical notebooks. The canonical pipeline in the \texttt{theory\_experiments} directory removes both mismatches. The manuscript's reported binary-cross-entropy robustness check uses the synthetic ridge-teacher design, not the historical breast-cancer notebook.
 
 \end{document}

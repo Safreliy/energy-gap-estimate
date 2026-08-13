@@ -10,7 +10,7 @@ uniform topological statement?
 
 ## High-priority findings in the legacy pipeline
 
-1. **[Critical, corrected in `dss.py`] Wrong aggregation of a returned path.**
+1. **[Critical, corrected in `legacy/dss.py`] Wrong aggregation of a returned path.**
    The old DSS output used the smallest unresolved segment exceedance. A
    piecewise path is controlled by the maximum over all of its segments.
    Historical CSV files were generated before the fix and remain invalid as

@@ -9,7 +9,8 @@ This archive accompanies the second-audit revision dated 13 August 2026.
 - `tests/`: twelve invariant and backend tests, run with
   `python -m unittest discover -s tests -v`.
 - `configs/`: frozen Huber and binary-cross-entropy configurations.
-- `dss.py`: corrected legacy DSS implementation retained for provenance.
+- `legacy/`: corrected historical notebooks and standalone DSS implementation,
+  retained for provenance and excluded from the canonical analysis.
 
 ## Frozen results
 

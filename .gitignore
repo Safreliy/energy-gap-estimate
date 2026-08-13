@@ -33,11 +33,9 @@ jamc_article/*.log
 jamc_article/*.out
 jamc_article/*.synctex.gz
 
-# Submission administration and superseded internal notes
+# Submission administration and local internal notes
 jamc_article/*.txt
 jamc_article/*.md
-!jamc_article/PROOF_REAUDIT_20260813.md
-!jamc_article/SECOND_AUDIT_RESOLUTION_20260813.md
 
 # Keep only the frozen journal evidence required by the public analyses
 results/*

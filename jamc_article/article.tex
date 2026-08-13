@@ -38,7 +38,7 @@
 
 \affil*[1]{\orgname{Independent Researcher}, \orgaddress{\country{Russia}}}
 
-\abstract{We study pathwise connectivity of sublevel sets for one-hidden-layer ReLU networks with constrained first-layer weights and an $\ell_1$ penalty on the output layer. The data term is assumed convex and globally Lipschitz in the scalar logit. We first give a finite-width construction that connects any two points of a common sublevel through a path controlled by a loss-consistent compression functional and a first-order perturbation term. The proof replaces the quadratic perturbation estimate in the Freeman--Bruna mechanism by a direct Lipschitz bound. Positive homogeneity is then used in a direction that is compatible with the penalty: every active atom is moved monotonically from the unit ball to the unit sphere while its output coefficient is reduced. Sphere covering and cluster merging consequently give $O(m^{-1/(n-1)})$ fixed-level thickening for $n\ge2$, while the one-dimensional two-ray dictionary gives exact connectivity at sufficient width. We also prove internally that the regularized approximation values satisfy $e(l)-e_\infty=O(l^{-1/2})$. More generally, a rate $O(l^{-s})$ transfers to a near-optimal barrier rate $O(m^{-s/((n-1)s+1)})$; in particular, our model has the unconditional rate $O(m^{-1/(n+1)})$. A theorem-aligned finite-distribution experiment complements the analysis. The primary Huber run yields a maximal best certified upper gap $1.66\times10^{-5}$ over 720 recorded pairs at widths $m\ge16$; a matched binary-cross-entropy rerun and a 720-endpoint dense-representation stress test probe loss robustness and the active cluster-merging mechanism.}
+\abstract{We study pathwise connectivity of sublevel sets for one-hidden-layer ReLU networks with constrained first-layer weights and an $\ell_1$ penalty on the output layer. The data term is assumed convex and globally Lipschitz in the scalar logit. We first give a finite-width construction that connects any two points of a common sublevel through a path controlled by a loss-consistent compression functional and a first-order perturbation term. The proof replaces the quadratic perturbation estimate in the Freeman--Bruna mechanism by a direct Lipschitz bound. Positive homogeneity is then used in a direction that is compatible with the penalty: every active atom is moved monotonically from the unit ball to the unit sphere while its output coefficient is reduced. Sphere covering and cluster merging consequently give $O(m^{-1/(n-1)})$ fixed-level thickening for $n\ge2$, while the one-dimensional two-ray dictionary gives exact connectivity for every $m\ge4$. We also prove internally that the regularized approximation values satisfy $e(l)-e_\infty=O(l^{-1/2})$. More generally, a rate $O(l^{-s})$ transfers to a near-optimal barrier rate $O(m^{-s/((n-1)s+1)})$; under the standing assumptions, this yields the explicit rate $O(m^{-1/(n+1)})$. A theorem-aligned finite-distribution experiment complements the analysis. The primary Huber run yields a maximal best certified upper gap $1.66\times10^{-5}$ over 720 recorded pairs at widths $m\ge16$; a matched binary-cross-entropy rerun and a 720-endpoint dense-representation stress test probe loss robustness and the active cluster-merging mechanism.}
 
 \keywords{neural-network approximation, loss landscape, sublevel-set connectivity, ReLU network, energy barrier, overparameterization}
 
@@ -61,12 +61,12 @@ but this rescaling changes an $\ell_1$ penalty imposed only on $a$. Consequently
 The main contributions are the following.
 \begin{enumerate}
 \item We prove an attained, finite-width barrier bound for losses that are convex and Lipschitz in the logit. The proof includes an explicit perturbation estimate and an explicit relocation argument for inactive neurons.
-\item We prove a uniform statement over all endpoint pairs in a fixed sublevel. A monotone sphericalization path reduces the relevant metric dimension from $n$ to $n-1$, giving $O(m^{-1/(n-1)})$ thickening for $n\ge2$ and eventual exact connectivity for $n=1$.
-\item We connect approximation theory to landscape topology. A Maurey-type sampling argument gives the model-internal rate $e(l)-e_\infty=O(l^{-1/2})$; hence near-optimal barriers are unconditionally $O(m^{-1/(n+1)})$ for $n\ge2$. We also state the sharper transfer produced by any available rate $O(l^{-s})$.
+\item We prove a uniform statement over all endpoint pairs in a fixed sublevel. A monotone sphericalization path reduces the relevant metric dimension from $n$ to $n-1$, giving $O(m^{-1/(n-1)})$ thickening for $n\ge2$ and exact connectivity for every $m\ge4$ when $n=1$.
+\item We connect approximation theory to landscape topology. A Maurey-type sampling argument gives the model-internal rate $e(l)-e_\infty=O(l^{-1/2})$; under the standing assumptions, near-optimal barriers are therefore $O(m^{-1/(n+1)})$ for $n\ge2$. We also state the sharper transfer produced by any available rate $O(l^{-s})$.
 \item We give a theorem-aligned computational diagnostic on finite seeded distributions. It verifies the parameter and compression invariants and compares direct interpolation, certified Dynamic String Sampling (DSS), and the proof-inspired path on 900 trained-endpoint pairs, with disjoint pairing inside each replicate--width--level group. We repeat the complete design with binary cross-entropy in logits and separately stress nontrivial merging on dense endpoint representations.
 \end{enumerate}
 
-The last result concerns the evolution of the approximation class with width; it is not a convergence theorem for gradient descent or a claim about training-time dynamics. The paper also does not assert exact finite-width connectivity or make a statement about arbitrary deep networks.
+The last result concerns the evolution of the approximation class with width; it is not a convergence theorem for gradient descent or a claim about training-time dynamics. Apart from the explicit one-dimensional result at $m\ge4$, the paper does not assert exact finite-width connectivity or make a statement about arbitrary deep networks.
 
 The remainder is organized as follows. Section~\ref{sec:related} positions the result within connectivity, mode-connectivity, and convex-reformulation work. Section~\ref{sec:setting} fixes the model and the barrier quantities. Section~\ref{sec:finite} proves the finite-width path theorem. Section~\ref{sec:rates} derives the fixed-level and approximation-driven rates. Section~\ref{sec:computational} reports the theorem-aligned computational diagnostic, and Section~\ref{sec:discussion} discusses scope and limitations.
 
@@ -352,6 +352,29 @@ $\theta_i(t)\relu(w_i(t)^\top x)=\theta_i\relu(w_i^\top x)$ for every $x$, while
 
 The preceding lemma uses homogeneity only in the penalty-compatible direction: radii grow to one while output coefficients shrink. It is not a reversible ``without loss of generality'' identification of the ball with the sphere. It does, however, reduce the covering step to the active directional dictionary.
 
+\begin{lemma}[Metric entropy of the active sphere]\label{lem:sphere-cover}
+For every $n\ge2$ there is a constant $c_n<\infty$ such that, for every integer $N\ge1$, the sphere $S^{n-1}$ can be covered by at most $N$ sets of Euclidean diameter at most
+\begin{equation}
+c_nN^{-1/(n-1)}.
+\label{eq:sphere-cover}
+\end{equation}
+Consequently, its Euclidean covering number, defined as the minimum number of
+radius-$\varepsilon$ Euclidean balls needed to cover the sphere, satisfies
+\[
+\mathcal N(S^{n-1},\varepsilon)
+\le C_n\varepsilon^{-(n-1)},
+\qquad 0<\varepsilon\le2,
+\]
+for a constant $C_n$ depending only on $n$.
+\end{lemma}
+
+\begin{proof}
+Split $S^{n-1}$ into the $2n$ coordinate patches on which one prescribed signed coordinate has magnitude at least $1/\sqrt n$. Up to a coordinate permutation, each patch is the graph
+$z\mapsto(z,\pm\sqrt{1-\norm{z}_2^2})$ over a subset of $[-1,1]^{n-1}$. On that subset the final coordinate is bounded away from zero, so the graph map has a Lipschitz constant depending only on $n$.
+
+For $N\ge2n$, set $q=\lfloor(N/(2n))^{1/(n-1)}\rfloor$ and divide $[-1,1]^{n-1}$ into $q^{n-1}$ congruent cells. Their intersections with the coordinate patches give at most $2nq^{n-1}\le N$ sets. Their diameters are at most $C_n'/q\le c_nN^{-1/(n-1)}$, where we used $q\ge\tfrac12(N/(2n))^{1/(n-1)}$. Enlarging $c_n$ covers the finitely many cases $N<2n$ by the sphere itself. The covering-number bound follows by choosing $N$ on the order of $\varepsilon^{-(n-1)}$ and placing a Euclidean ball at one point of each nonempty set.
+\end{proof}
+
 \begin{lemma}[Spherical cluster merging]\label{lem:merge}
 Fix $n\ge2$ and a bounded level $\bar\lambda>\underline R$. There is a constant $C=C(n,L,D_X,\kappa,\bar\lambda-\underline R)$ such that, whenever $F_m(W,\theta)\le\lambda\le\bar\lambda$, every active row has norm one, and $1\le l<m$,
 \begin{equation}
@@ -368,14 +391,10 @@ Let $s=\norm{\theta}_0$. If $s\le m-l$, the original point is already feasible f
 k=s-(m-l),
 \qquad 1\le k\le l.
 \]
-We first record the needed covering explicitly. Split $S^{n-1}$ into the $2n$ coordinate patches on which one prescribed signed coordinate has magnitude at least $1/\sqrt n$. Each patch is the graph
-$z\mapsto(z,\pm\sqrt{1-\norm{z}_2^2})$, up to a coordinate permutation, on a domain where the graph map has a Lipschitz constant depending only on $n$. For $N\ge2n$, partition every coordinate cube into $q^{n-1}$ cells with
-$q=\lfloor(N/(2n))^{1/(n-1)}\rfloor$. The intersections of the patches with these cells form at most $2nq^{n-1}\le N$ sets of diameter at most $C_n/q\le C_n'N^{-1/(n-1)}$. Enlarging $C_n'$ covers the finitely many cases $N<2n$ with one set. Thus, for every integer $N\ge1$, the sphere is covered by at most $N$ sets of diameter at most $C_n'N^{-1/(n-1)}$.
-
-Put $N=\lfloor s/(k+1)\rfloor\ge1$. Assign each active row to one covering set that contains it. If every set received at most $k$ rows, then
+Put $N=\lfloor s/(k+1)\rfloor\ge1$ and use the cover from Lemma~\ref{lem:sphere-cover}. Assign each active row to one covering set that contains it. If every set received at most $k$ rows, then
 $s\le kN\le ks/(k+1)<s$, a contradiction. Hence some set contains a cluster $Q$ of at least $k+1$ active rows. Since $\lfloor x\rfloor\ge x/2$ for $x\ge1$, its diameter is at most
 \[
-2^{1/(n-1)}C_n'
+2^{1/(n-1)}c_n
 \left(\frac{k+1}{s}\right)^{1/(n-1)}.
 \]
 Notice also that
@@ -402,7 +421,7 @@ Moreover,
 &\le
 \sum_{i\in Q\setminus\{i_0\}}\abs{\theta_i}
 \E\abs{\relu(w_i^\top X)-\relu(w_{i_0}^\top X)}\\
-&\le 2^{1/(n-1)}C_n'
+&\le 2^{1/(n-1)}c_n
 \left(\frac{k+1}{s}\right)^{1/(n-1)}D_X\norm{\theta}_1.
 \end{align*}
 By Lemma~\ref{lem:attainment}, $\norm{\theta}_1\le(\bar\lambda-\underline R)/\kappa$. The Lipschitz property of the loss now gives \eqref{eq:merge-bound}. No perturbation of $W$ is used, which explains the radius $r=0$.
@@ -451,7 +470,11 @@ Equivalently,
 \SubBar_m(\lambda)=O(m^{-1/(n-1)}).
 \]
 The constant is uniform over the endpoints.
-If $n=1$, then $\SubBar_m(\lambda)=0$ for all sufficiently large $m$.
+If $n=1$, then
+\[
+\SubBar_m(\lambda)=0
+\qquad\text{for every }m\ge4.
+\]
 \end{theorem}
 
 \begin{proof}
@@ -461,7 +484,7 @@ Because $e(l)\downarrow e_\infty$, choose a fixed $l_\lambda$ with $e(l_\lambda)
 \delta_{W_B^\circ}^{\mathcal L}(m-l_\lambda,0;m)
 \le\lambda+C_\lambda m^{-1/(n-1)}.
 \]
-Use Theorem~\ref{thm:finite} from the sphericalized endpoints with $r=0$. The perturbation term vanishes, while $e(l_\lambda)<\lambda$, and reversing the endpoint sphericalization paths proves \eqref{eq:fixed-rate}. If $n=1$, Lemma~\ref{lem:two-ray} reduces each endpoint to at most two active neurons. For $m\ge l_\lambda+2$ this is feasible for the compression budget $m-l_\lambda$, so Theorem~\ref{thm:finite} gives a path entirely inside the original sublevel.
+Use Theorem~\ref{thm:finite} from the sphericalized endpoints with $r=0$. The perturbation term vanishes, while $e(l_\lambda)<\lambda$, and reversing the endpoint sphericalization paths proves \eqref{eq:fixed-rate}. If $n=1$, Lemma~\ref{lem:two-ray} implies $e(2)=e_\infty$: every finite-width network has a no-worse representation with at most two active neurons, while width monotonicity gives the reverse inequality. Continue each sphericalization path with the nonincreasing two-ray compression path and take $l=2$. For every $m\ge4$, each resulting endpoint has at most $2\le m-2$ active coefficients, so both compression values in Theorem~\ref{thm:finite} are at most $\lambda$; moreover $e(2)=e_\infty<\lambda$. The theorem with $r=0$, together with the nonincreasing endpoint paths, gives a path entirely inside $\Omega_m(\lambda)$.
 \end{proof}
 
 The fixed-level theorem does not need a quantitative estimate for $e(l)-e_\infty$. Before treating moving levels we derive such an estimate directly for the present regularized model.
@@ -477,7 +500,11 @@ There is a constant $A<\infty$, depending only on the standing problem data, suc
 
 \begin{proof}
 Let $B_0=F_1(0,0)$, which is finite by Assumption~\ref{ass:standing}, and set $T=(B_0-\underline R+1)/\kappa$. For every $\varepsilon\in(0,1)$ choose a width $q=q(\varepsilon)$ and $(W,\theta)\in\mathcal W_q$ with
-$F_q(W,\theta)\le e_\infty+\varepsilon\le B_0+\varepsilon$. Lemma~\ref{lem:attainment} gives $\norm{\theta}_1\le T$. If $\norm{\theta}_1=0$, the desired comparison is immediate. Otherwise write $a=\norm{\theta}_1$ and sample independently indices $I_1,\ldots,I_l$ with probabilities $\abs{\theta_i}/a$. The random $l$-neuron predictor
+$F_q(W,\theta)\le e_\infty+\varepsilon\le B_0+\varepsilon$. Lemma~\ref{lem:attainment} gives $\norm{\theta}_1\le T$. If $\norm{\theta}_1=0$, then both predictors are zero and the width-$l$ zero network satisfies
+\[
+e(l)\le F_l(0,0)=F_q(W,0)\le e_\infty+\varepsilon;
+\]
+this is already no larger than the common bound obtained below. Otherwise write $a=\norm{\theta}_1$ and sample independently indices $I_1,\ldots,I_l$ with probabilities $\abs{\theta_i}/a$. The random $l$-neuron predictor
 \[
 \widehat f_l(x)=\frac{a}{l}\sum_{j=1}^l
 \operatorname{sgn}(\theta_{I_j})\relu(w_{I_j}^\top x)
@@ -493,11 +520,20 @@ F_q(W,\theta)+\frac{La}{\sqrt l}\sqrt{\E\norm{X}_2^2}
 \le e_\infty+\varepsilon+
 \frac{LT}{\sqrt l}\sqrt{\E\norm{X}_2^2}.
 \]
-At least one realization obeys the same upper bound. Taking the minimum and then letting $\varepsilon\downarrow0$ proves \eqref{eq:universal-approx-rate}.
+At least one realization obeys the same upper bound. Thus, in either case,
+\[
+e(l)\le e_\infty+\varepsilon+
+\frac{LT}{\sqrt l}\sqrt{\E\norm{X}_2^2}.
+\]
+Since the construction applies to every $\varepsilon\in(0,1)$, letting $\varepsilon\downarrow0$ proves \eqref{eq:universal-approx-rate}.
 \end{proof}
 
 \begin{corollary}[Qualitative moving-level connectivity]\label{cor:qualitative}
-Let $\lambda_m$ be any bounded sequence with $\lambda_m\ge e(m)$. Then $\SubBar_m(\lambda_m)\to0$ for $n\ge2$, while for $n=1$ it is eventually zero.
+Let $\lambda_m$ be any bounded sequence with $\lambda_m\ge e(m)$. Then $\SubBar_m(\lambda_m)\to0$ for $n\ge2$, while for $n=1$,
+\[
+\SubBar_m(\lambda_m)=0
+\qquad\text{for every }m\ge4.
+\]
 \end{corollary}
 
 \begin{proof}
@@ -507,7 +543,7 @@ For $n\ge2$, take any integers $l_m\to\infty$ with $l_m/m\to0$, for example $l_m
 \le (e(l_m)-e_\infty)
 +C\left(\frac{l_m+1}{m}\right)^{1/(n-1)},
 \]
-where $C$ is uniform because $(\lambda_m)$ is bounded. Both terms tend to zero. If $n=1$, Lemmas~\ref{lem:sphericalize} and \ref{lem:two-ray} show that every finite network has a no-worse two-neuron representation. Hence $e(l)=e(2)=e_\infty$ for $l\ge2$; choosing reference width two in Theorem~\ref{thm:finite} gives zero thickening for $m\ge4$.
+where $C$ is uniform because $(\lambda_m)$ is bounded. Both terms tend to zero. If $n=1$, concatenate each endpoint with the nonincreasing paths from Lemmas~\ref{lem:sphericalize} and \ref{lem:two-ray}. Every resulting representation has at most two active neurons, and the same lemmas imply $e(l)=e(2)=e_\infty$ for $l\ge2$. Choosing reference width two in Theorem~\ref{thm:finite} then gives zero thickening for every $m\ge4$; reversing the second endpoint path completes the connection.
 \end{proof}
 
 \begin{corollary}[Approximation rate implies barrier rate]\label{cor:transfer}
@@ -524,7 +560,7 @@ Let $\lambda_m$ be any bounded sequence with $\lambda_m\ge e(m)$. Then
 \qquad n\ge2.
 \label{eq:transfer-rate}
 \end{equation}
-For $n=1$ the thickening is eventually zero. In particular, these statements control the path thickening between arbitrary global minimizers when $\lambda_m=e(m)$.
+For $n=1$ the thickening is zero for every $m\ge4$. In particular, these statements control the path thickening between arbitrary global minimizers when $\lambda_m=e(m)$.
 \end{corollary}
 
 \begin{proof}
@@ -539,13 +575,13 @@ where $C$ is uniform because $(\lambda_m)$ is bounded. Indeed, $\lambda_m\ge e(m
 $l_m=\lfloor m^{1/((n-1)s+1)}\rfloor$, so $1\le l_m<m$. The two terms in \eqref{eq:tradeoff} are then both $O(m^{-s/((n-1)s+1)})$; the finitely many remaining widths are absorbed into the constant. This proves \eqref{eq:transfer-rate}. The one-dimensional assertion follows from Corollary~\ref{cor:qualitative}.
 \end{proof}
 
-\begin{corollary}[Unconditional near-optimal rate]\label{cor:unconditional}
+\begin{corollary}[Near-optimal rate under the standing assumptions]\label{cor:near-optimal}
 For every bounded sequence $\lambda_m\ge e(m)$,
 \[
 \SubBar_m(\lambda_m)=O(m^{-1/(n+1)}),
 \qquad n\ge2,
 \]
-and the thickening is eventually zero for $n=1$.
+and the thickening is zero for every $m\ge4$ when $n=1$.
 \end{corollary}
 
 \begin{proof}
@@ -660,7 +696,7 @@ The fixed-level BCE row is qualitatively consistent with a width transition, but
 
 \input{generated_loss_robustness_table.tex}
 
-This weaker moving-level outcome is informative rather than contradictory. Corollaries~\ref{cor:qualitative}--\ref{cor:unconditional} assume a certified sequence $\lambda_m\ge e(m)$ and balance a growing reference width against compression. Here $\lambda_m$ is only an optimizer-based proxy, the endpoints are a finite sample, and the numerical algorithms have fixed depth and training budgets. Moreover, a returned-path upper gap is not a lower bound on the infimal barrier: a large value can diagnose failure of the searched constructions without establishing that every path has a large barrier. Consequently, the BCE rerun supports the loss-side generality and implementation invariants, but it is deliberately not presented as empirical verification of the moving-level rate. This is the practical reason for retaining both rows: the fixed row is the closer diagnostic for Theorem~\ref{thm:fixed-level}, whereas the moving row exposes the additional approximation and optimization demands of the moving-level corollaries.
+This weaker moving-level outcome is informative rather than contradictory. Corollaries~\ref{cor:qualitative}--\ref{cor:near-optimal} assume a certified sequence $\lambda_m\ge e(m)$ and balance a growing reference width against compression. Here $\lambda_m$ is only an optimizer-based proxy, the endpoints are a finite sample, and the numerical algorithms have fixed depth and training budgets. Moreover, a returned-path upper gap is not a lower bound on the infimal barrier: a large value can diagnose failure of the searched constructions without establishing that every path has a large barrier. Consequently, the BCE rerun supports the loss-side generality and implementation invariants, but it is deliberately not presented as empirical verification of the moving-level rate. This is the practical reason for retaining both rows: the fixed row is the closer diagnostic for Theorem~\ref{thm:fixed-level}, whereas the moving row exposes the additional approximation and optimization demands of the moving-level corollaries.
 
 \section{Discussion and Limitations}\label{sec:discussion}
 
@@ -676,7 +712,7 @@ Finally, barrier decay does not by itself imply rapid optimization. The proof co
 
 \section{Conclusion}\label{sec:conclusion}
 
-For a constrained shallow ReLU model, convexity in the output layer and Lipschitz continuity of the loss are sufficient to turn robust neuron compression into a quantitative pathwise barrier bound. A monotone sphericalization path and cluster merging give uniform $O(m^{-1/(n-1)})$ thickening of every fixed sublevel above the limiting approximation value for $n\ge2$, with eventual exact connectivity in one dimension. Objective-value sampling proves $e(l)-e_\infty=O(l^{-1/2})$ inside the model, yielding the unconditional near-optimal barrier rate $O(m^{-1/(n+1)})$. The resulting statement is a concrete bridge from approximation theory to loss-landscape topology, with its architectural and loss assumptions explicit.
+For a constrained shallow ReLU model, convexity in the output layer and Lipschitz continuity of the loss are sufficient to turn robust neuron compression into a quantitative pathwise barrier bound. A monotone sphericalization path and cluster merging give uniform $O(m^{-1/(n-1)})$ thickening of every fixed sublevel above the limiting approximation value for $n\ge2$, with exact connectivity for every $m\ge4$ in one dimension. Objective-value sampling proves $e(l)-e_\infty=O(l^{-1/2})$ inside the model and, under the standing assumptions, yields the near-optimal barrier rate $O(m^{-1/(n+1)})$. The resulting statement is a concrete bridge from approximation theory to loss-landscape topology, with its architectural and loss assumptions explicit.
 
 \backmatter
 
@@ -697,7 +733,7 @@ The author is grateful to Prof. Dmitry A. Kamaev for valuable discussions and gu
 
 \textbf{Data Availability.} No external data are used in the theoretical results or the reported numerical protocol. The protocol generates versioned finite empirical distributions from a seeded wide ridge-function teacher and stores the realized inputs and targets with each run.
 
-\textbf{Code Availability.} The theory-aligned experiment, invariant tests, versioned configurations, proof-audit notes, corrected legacy DSS implementation, frozen result tables, and endpoint/path array archives are available at \url{https://github.com/Safreliy/energy-gap-estimate}. The repository marks the superseded historical outputs explicitly and contains the frozen artifacts used to regenerate the reported tables and figures.
+\textbf{Code Availability.} The theory-aligned experiment, invariant tests, versioned configurations, proof-audit notes, frozen result tables, and endpoint/path array archives are available at \url{https://github.com/Safreliy/energy-gap-estimate}. The corrected historical notebooks and standalone DSS implementation are isolated under \texttt{legacy/}; they are not used to generate the reported results. The repository contains the frozen canonical artifacts used to regenerate every reported table and figure.
 
 \textbf{Author Contribution.} Saveliy Baturin conducted the analysis, implemented the computational diagnostic, and wrote the manuscript.
 
