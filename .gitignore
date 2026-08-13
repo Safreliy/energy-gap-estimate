@@ -1,0 +1,65 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local logs, scratch space, and packaged copies
+logs/
+tmp/
+*.zip
+*.tar
+*.tar.gz
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# LaTeX build products; final PDFs and source figures remain versioned
+jamc_article/*.aux
+jamc_article/*.bbl
+jamc_article/*.blg
+jamc_article/*.fdb_latexmk
+jamc_article/*.fls
+jamc_article/*.log
+jamc_article/*.out
+jamc_article/*.synctex.gz
+
+# Submission administration and superseded internal notes
+jamc_article/*.txt
+jamc_article/*.md
+!jamc_article/PROOF_REAUDIT_20260813.md
+!jamc_article/SECOND_AUDIT_RESOLUTION_20260813.md
+
+# Keep only the frozen journal evidence required by the public analyses
+results/*
+!results/reviewer_main_gpu_n1/
+!results/reviewer_main_gpu_n2/
+!results/reviewer_main_gpu_n4/
+!results/reviewer_cross_entropy_gpu_n1/
+!results/reviewer_cross_entropy_gpu_n2/
+!results/reviewer_cross_entropy_gpu_n4/
+!results/reviewer_main_analysis/
+!results/reviewer_loss_robustness/
+!results/dense_endpoint_stress/
+
+# Historical local visualization work is not part of the revised evidence
+/figures/
+/jmlr_acticle/
+2_loss_landscape_article_visualization.ipynb
+loss_landscape_article_pipeline.py
+run_remote_main.cmd
+run_remote_main.ps1
+jamc_article/sn-article-template/
+
+# Historical pre-audit tables remain in Git history but are not public evidence
+energy_gap_moons_percentiles.csv
+energy_gap_cancer_percentiles.csv

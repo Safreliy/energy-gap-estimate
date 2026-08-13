@@ -1,0 +1,6 @@
+input_dim,quantity,slope,ci_low,ci_high,zero_fraction,slope_status,theory_reference
+4,optimization_proxy_excess,-5.887622247650273,-5.93469981850322,-4.664214935128435,0.4,descriptive,conditional; fitted slope is not an estimate of true s
+4,fixed_sampled_pair_path_upper,-2.480623361400641,-2.6080520185734506,-2.2646879339260475,0.0,descriptive,worst-case theorem slope >= -0.25
+4,fixed_proof_path_upper,-3.5905584661269274,-3.598276990088456,-3.5811734133624133,0.0,descriptive,constructive analogue; worst-case theorem slope >= -0.25
+4,moving_sampled_pair_path_upper,-2.1269665478098485,-2.3669619740756063,-0.14312513663504925,0.0,descriptive,compare with -s/(n s + 1) only after specifying s
+4,moving_proof_path_upper,nan,nan,nan,0.52,not_estimable_due_to_zeros,constructive analogue at moving empirical levels

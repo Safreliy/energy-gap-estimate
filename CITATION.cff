@@ -1,22 +1,18 @@
 ﻿cff-version: 1.2.0
-title: "Energy Gap Experiments (Moons + Breast Cancer)"
-message: "If you use this repository, please cite the associated arXiv preprint."
+title: "Theory-Aligned Loss-Landscape Experiments"
+message: "If you use this repository, cite the revised manuscript and the repository commit used in your analysis."
 type: software
+repository-code: "https://github.com/Safreliy/energy-gap-estimate"
 authors:
   - family-names: "Baturin"
     given-names: "Saveliy"
-identifiers:
-  - type: url
-    value: "https://arxiv.org/abs/2602.17596"
-  - type: doi
-    value: "10.5281/zenodo.18607965"
 preferred-citation:
   type: article
   authors:
     - family-names: "Baturin"
       given-names: "Saveliy"
-  title: "Asymptotic Smoothing of the Lipschitz Loss Landscape in Overparameterized One-Hidden-Layer ReLU Networks"
-  journal: "arXiv"
+  title: "From Approximation Rates to Loss-Landscape Barrier Decay in Shallow ReLU Networks"
+  journal: "Manuscript"
   year: 2026
-  url: "https://arxiv.org/abs/2602.17596"
+  url: "https://github.com/Safreliy/energy-gap-estimate/blob/main/jamc_article/article.pdf"
 license: "CC-BY-4.0"

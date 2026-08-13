@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\caption{Loss-robustness summary over all dimensions at widths $m\ge16$. Each loss--level row contains 360 recorded pairs. ``Best'' is the smaller certified DSS or constructive upper gap.}
+\label{tab:loss-robustness}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+Loss & level & max gap & max/level & proof zero (\%) & DSS tol. (\%) & med. direct/level \\
+\midrule
+Huber & fixed & 1.649e-05 & 1.377e-03 & 55.8 & 44.2 & 2.246e+00 \\
+Huber & moving & 1.658e-05 & 1.439e-03 & 88.6 & 68.9 & 2.138e+00 \\
+BCE (logits) & fixed & 7.134e-03 & 5.032e-02 & 51.7 & 31.4 & 2.317e-01 \\
+BCE (logits) & moving & 1.016e-01 & 7.956e-01 & 57.5 & 23.3 & 5.991e-01 \\
+\bottomrule
+\end{tabular}
+\end{table*}

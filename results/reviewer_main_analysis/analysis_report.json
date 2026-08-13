@@ -1,0 +1,74 @@
+{
+  "evidence_status": {
+    "scope": "finite seeded distribution and recorded endpoint pairs",
+    "uniform_sublevel_claim": false,
+    "slope_claim": false,
+    "reason_slopes_are_not_central": "finite-range fits are dominated by the m=8 to m=16 transition and a roughly 1e-5 DSS certificate floor thereafter"
+  },
+  "invariants": {
+    "models": 1200,
+    "pairs": 900,
+    "pair_groups": 300,
+    "compression_records": 1200,
+    "max_first_layer_norm": 1.0000000000000002,
+    "compression_bound_violations": 0,
+    "endpoint_threshold_violations": 0
+  },
+  "global_high_width_summary": {
+    "high_width_pairs": 720,
+    "best_path_zero_fraction": 0.7236111111111111,
+    "best_path_max_gap": 1.6583942197863702e-05,
+    "best_path_max_relative_gap": 0.0014390910817788228,
+    "dss_median_gap": 9.936157577790546e-06,
+    "direct_median_gap": 0.047876439337774426,
+    "direct_gap_min": 0.0026966065649679655,
+    "direct_gap_max": 0.09546154010744494,
+    "median_direct_to_dss_ratio": 4125.2310957712325,
+    "dss_within_tolerance_fraction": 0.5652777777777778,
+    "unresolved_row_fraction": 0.43472222222222223
+  },
+  "by_dimension": [
+    {
+      "input_dim": 1,
+      "optimization_proxy_m8": 0.1174510876648598,
+      "optimization_proxy_m128": 0.11745108766483539,
+      "proxy_relative_decrease": 2.0783995482103285e-13,
+      "high_width_pairs": 240,
+      "proof_zero_gap_fraction": 0.9083333333333333,
+      "best_path_max_gap": 2.337752505465751e-09,
+      "best_path_max_relative_gap": 1.9904051280385012e-08,
+      "dss_median_gap": 9.975902427163119e-06,
+      "direct_median_gap": 0.010010706113938436,
+      "median_direct_to_dss_ratio": 994.3415114261686,
+      "max_compression_to_bound_ratio": 0.08871887977113284
+    },
+    {
+      "input_dim": 2,
+      "optimization_proxy_m8": 0.023544170180673986,
+      "optimization_proxy_m128": 0.023544170180673986,
+      "proxy_relative_decrease": 0.0,
+      "high_width_pairs": 240,
+      "proof_zero_gap_fraction": 0.9,
+      "best_path_max_gap": 1.599796936548048e-05,
+      "best_path_max_relative_gap": 0.0006597506939762789,
+      "dss_median_gap": 1.049866278318018e-05,
+      "direct_median_gap": 0.05209802905167038,
+      "median_direct_to_dss_ratio": 4595.111947994728,
+      "max_compression_to_bound_ratio": 0.06589835519370778
+    },
+    {
+      "input_dim": 4,
+      "optimization_proxy_m8": 0.010835584810106493,
+      "optimization_proxy_m128": 0.01072097372914641,
+      "proxy_relative_decrease": 0.010577286133479727,
+      "high_width_pairs": 240,
+      "proof_zero_gap_fraction": 0.35833333333333334,
+      "best_path_max_gap": 1.6583942197863702e-05,
+      "best_path_max_relative_gap": 0.0014390910817788228,
+      "dss_median_gap": 9.631078125317376e-06,
+      "direct_median_gap": 0.06028982077261611,
+      "median_direct_to_dss_ratio": 6101.033573581139,
+      "max_compression_to_bound_ratio": 0.044756028435922884
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "fixed-level selected Huber endpoints at widths m>=16",
+  "construction": "exact sphericalization and coefficient splitting, followed by sublevel-calibrated tangent jitter",
+  "records": 720,
+  "records_per_dimension_width": 60,
+  "all_coordinates_active_before_merge": true,
+  "minimum_removed_support": 4,
+  "maximum_positive_increment": 0.013667565358487585,
+  "maximum_increment_to_bound": 0.03959055789682016,
+  "bound_violations": 0,
+  "positive_jitter_fraction_n2_n4": 1.0,
+  "warning": "This constructed finite stress test validates the active merge mechanism and its exact inequality; it is not evidence for an asymptotic exponent."
+}

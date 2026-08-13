@@ -1,0 +1,46 @@
+{
+  "seed": 20260812,
+  "dimensions": [1, 2],
+  "widths": [8, 16, 32, 64],
+  "replicates": 2,
+  "models_per_width": 4,
+  "pairs_per_width": 2,
+  "dataset": {
+    "n_samples": 128,
+    "teacher_width": 128,
+    "coefficient_decay": 1.35,
+    "target_scale": 0.8
+  },
+  "objective": {
+    "loss": "huber",
+    "huber_delta": 0.25,
+    "kappa": 0.002
+  },
+  "training": {
+    "epochs": 450,
+    "learning_rate": 0.015,
+    "patience": 80,
+    "min_delta": 1e-10
+  },
+  "dss": {
+    "max_depth": 5,
+    "initial_grid_points": 17,
+    "max_grid_points": 65,
+    "final_grid_points": 65,
+    "certificate_tolerance": 0.00003,
+    "midpoint_training": {
+      "epochs": 300,
+      "learning_rate": 0.01,
+      "patience": 60
+    }
+  },
+  "level_selection_quantile": 0.67,
+  "moving_level_slack_fraction_of_zero": 0.02,
+  "moving_level_slack_exponent": 0.5,
+  "compression_reserve_neurons": 4,
+  "proof_bridge_widths": [2, 4, 8, 16],
+  "fixed_proof_bridge_width": 4,
+  "proof_bridge_starts": 3,
+  "artifact_pairs_per_group": 1,
+  "bootstrap_repetitions": 500
+}

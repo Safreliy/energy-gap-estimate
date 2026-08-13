@@ -148,6 +148,32 @@ def max_loss_along_path(
 
     return max_loss, t_max, theta_at_max
 
+
+def max_loss_along_piecewise_path(
+    model: nn.Module,
+    loss_func,
+    path: List[List[torch.Tensor]],
+    dataloader: torch.utils.data.DataLoader,
+    steps: int = 100,
+    l1_lambda: float = 0.01,
+) -> float:
+    """Evaluate the maximum objective over every segment of a returned path."""
+    if len(path) < 2:
+        raise ValueError("A piecewise-linear path needs at least two nodes.")
+    maxima = [
+        max_loss_along_path(
+            model,
+            loss_func,
+            theta_a,
+            theta_b,
+            dataloader,
+            steps=steps,
+            l1_lambda=l1_lambda,
+        )[0]
+        for theta_a, theta_b in zip(path[:-1], path[1:])
+    ]
+    return max(maxima)
+
 def train_model_to_threshold(
     model: nn.Module,
     dataloader: torch.utils.data.DataLoader,
@@ -426,9 +452,13 @@ def estimate_energy_gap_dss_pair(
         normalize_first_layer_weights=normalize_first_layer_weights,
         **kwargs,
     )
-    if hit_max_depth:
-        min_barrier = min(barrier_losses) if barrier_losses else threshold
-    else:
-        min_barrier = threshold
-    gap = max(0.0, min_barrier - threshold)
-    return gap, min_barrier, path, bool(hit_max_depth), barrier_losses
+    path_barrier = max_loss_along_piecewise_path(
+        model,
+        loss_func,
+        path,
+        dataloader,
+        steps=path_steps,
+        l1_lambda=l1_lambda,
+    )
+    gap = max(0.0, path_barrier - threshold)
+    return gap, path_barrier, path, bool(hit_max_depth), barrier_losses

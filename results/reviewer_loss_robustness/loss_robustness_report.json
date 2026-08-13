@@ -1,0 +1,108 @@
+{
+  "summaries": {
+    "Huber": {
+      "fixed": {
+        "high_width_pairs": 360,
+        "max_best_gap": 1.6493789648890783e-05,
+        "max_best_relative_gap": 0.0013766125547738687,
+        "proof_zero_fraction": 0.5583333333333333,
+        "median_direct_relative_gap": 2.245632432723581,
+        "dss_within_tolerance_fraction": 0.44166666666666665
+      },
+      "moving": {
+        "high_width_pairs": 360,
+        "max_best_gap": 1.6583942197863702e-05,
+        "max_best_relative_gap": 0.0014390910817788228,
+        "proof_zero_fraction": 0.8861111111111111,
+        "median_direct_relative_gap": 2.1381266007791897,
+        "dss_within_tolerance_fraction": 0.6888888888888889
+      }
+    },
+    "binary cross-entropy": {
+      "fixed": {
+        "high_width_pairs": 360,
+        "max_best_gap": 0.007133503452557477,
+        "max_best_relative_gap": 0.05031800049910271,
+        "proof_zero_fraction": 0.5166666666666667,
+        "median_direct_relative_gap": 0.23165804424539133,
+        "dss_within_tolerance_fraction": 0.3138888888888889
+      },
+      "moving": {
+        "high_width_pairs": 360,
+        "max_best_gap": 0.10156742126401824,
+        "max_best_relative_gap": 0.795623566105861,
+        "proof_zero_fraction": 0.575,
+        "median_direct_relative_gap": 0.5990547547746157,
+        "dss_within_tolerance_fraction": 0.23333333333333334
+      }
+    }
+  },
+  "invariants": {
+    "Huber": {
+      "models": 1200,
+      "pairs": 900,
+      "pair_groups": 300,
+      "compression_records": 1200,
+      "max_first_layer_norm": 1.0000000000000002,
+      "compression_bound_violations": 0,
+      "endpoint_threshold_violations": 0
+    },
+    "binary cross-entropy": {
+      "models": 1200,
+      "pairs": 900,
+      "pair_groups": 300,
+      "compression_records": 1200,
+      "max_first_layer_norm": 1.0000000000000002,
+      "compression_bound_violations": 0,
+      "endpoint_threshold_violations": 0
+    }
+  },
+  "runs": {
+    "Huber": [
+      {
+        "dimension": 1,
+        "loss": "huber",
+        "target_mode": "regression",
+        "elapsed_seconds": 1200.0214796,
+        "complete_pair_design": true
+      },
+      {
+        "dimension": 2,
+        "loss": "huber",
+        "target_mode": "regression",
+        "elapsed_seconds": 1254.3410444,
+        "complete_pair_design": true
+      },
+      {
+        "dimension": 4,
+        "loss": "huber",
+        "target_mode": "regression",
+        "elapsed_seconds": 818.7993045999974,
+        "complete_pair_design": true
+      }
+    ],
+    "binary cross-entropy": [
+      {
+        "dimension": 1,
+        "loss": "logistic",
+        "target_mode": "binary",
+        "elapsed_seconds": 2566.707500999997,
+        "complete_pair_design": true
+      },
+      {
+        "dimension": 2,
+        "loss": "logistic",
+        "target_mode": "binary",
+        "elapsed_seconds": 1664.0874173000047,
+        "complete_pair_design": true
+      },
+      {
+        "dimension": 4,
+        "loss": "logistic",
+        "target_mode": "binary",
+        "elapsed_seconds": 2810.993528500003,
+        "complete_pair_design": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "created_at_utc": "2026-08-12T18:55:58.773588+00:00",
+  "elapsed_seconds": 2810.993528500003,
+  "config": {
+    "seed": 20260812,
+    "dimensions": [
+      4
+    ],
+    "widths": [
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "replicates": 10,
+    "models_per_width": 8,
+    "pairs_per_width": 3,
+    "dataset": {
+      "n_samples": 384,
+      "teacher_width": 512,
+      "coefficient_decay": 1.35,
+      "target_scale": 0.8,
+      "target_mode": "binary"
+    },
+    "objective": {
+      "loss": "logistic",
+      "kappa": 0.002
+    },
+    "training": {
+      "backend": "torch",
+      "device": "cuda",
+      "dtype": "float32",
+      "epochs": 1800,
+      "learning_rate": 0.015,
+      "patience": 250,
+      "min_delta": 1e-10
+    },
+    "dss": {
+      "max_depth": 7,
+      "initial_grid_points": 33,
+      "max_grid_points": 513,
+      "final_grid_points": 513,
+      "certificate_tolerance": 1e-05,
+      "midpoint_training": {
+        "epochs": 1000,
+        "learning_rate": 0.01,
+        "patience": 150
+      }
+    },
+    "level_selection_quantile": 0.75,
+    "moving_level_slack_fraction_of_zero": 0.02,
+    "moving_level_slack_exponent": 0.5,
+    "compression_reserve_neurons": 4,
+    "proof_bridge_widths": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "fixed_proof_bridge_width": 4,
+    "proof_bridge_starts": 8,
+    "artifact_pairs_per_group": 1,
+    "bootstrap_repetitions": 5000
+  },
+  "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "numpy": "2.4.1",
+  "git_commit": null,
+  "expected_pair_records": 300,
+  "achieved_pair_records": 300,
+  "complete_pair_design": true,
+  "interpretation": {
+    "optimization_proxy": "best value found; an upper bound on, not an estimate certified equal to, e(m)",
+    "certified_path_upper": "upper bound for one returned path, hence an upper bound for that pair's infimal barrier",
+    "sampled_pairs": "a finite endpoint sample; it does not establish a uniform bound over the full sublevel",
+    "independence": "replicates are independent blocks; disjoint pairs are used within each block"
+  }
+}

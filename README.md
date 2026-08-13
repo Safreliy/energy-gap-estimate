@@ -1,65 +1,124 @@
-﻿# Energy Gap Experiments (Moons + Breast Cancer)
+# Theory-Aligned Loss-Landscape Experiments
 
-This repository contains two experiments measuring pairwise energy gaps for a one-hidden-layer ReLU network, plus the DSS implementation.
-The CSV outputs are intended for citation in the paper.
+This repository accompanies the revised theoretical manuscript on barrier decay
+in constrained shallow ReLU networks. The canonical experiment mirrors the
+bias-free model and regularized objective in the theorem. It measures
+finite-distribution objective values, constructive neuron compression, and
+upper bounds for returned path barriers over a sequence of widths.
+
+Read `EXPERIMENT_AUDIT.md` for the code audit and `EXPERIMENT_PROTOCOL.md` for
+the frozen-run workflow.
 
 ## Associated publication
-This repository accompanies the preprint:
 
-Saveliy Baturin (2026). *Asymptotic Smoothing of the Lipschitz Loss Landscape in Overparameterized One-Hidden-Layer ReLU Networks*. arXiv:2602.17596. https://arxiv.org/abs/2602.17596
+Saveliy Baturin (2026), *From Approximation Rates to Loss-Landscape Barrier
+Decay in Shallow ReLU Networks*. Revised manuscript in `jamc_article/`.
 
-Archived release record:
+- [Compiled manuscript](jamc_article/article.pdf)
+- [LaTeX source](jamc_article/article.tex)
+- [Supplementary reproducibility notes](jamc_article/supplementary_reproducibility_notes.pdf)
 
-Zenodo DOI: https://doi.org/10.5281/zenodo.18607965
+The earlier arXiv record is 2602.17596 and the archived development release is
+https://doi.org/10.5281/zenodo.18607965. Those records predate the present audit.
 
-## Method at a glance
-- Train multiple independent models of the same width.
-- For each pair, set the energy level:
-  `E = max(L(theta_A), L(theta_B))`.
-- Run DSS to connect the pair and measure the energy gap:
-  `max_t L(gamma(t)) - E`.
+## Canonical method
 
-## What's inside
-- `dss.py`: DSS implementation and supporting utilities.
-- Moons experiment (regression, MSE):
-  - `0_energy_gap_experiment.ipynb`
-  - `energy_gap_moons_percentiles.csv`
-- Breast Cancer experiment (classification, BCE):
-  - `1_energy_gap_cancer_experiment.ipynb`
-  - `energy_gap_cancer_percentiles.csv`
+- Bias-free model `sum_i theta_i ReLU(w_i^T x)` with `||w_i|| <= 1`.
+- Globally Lipschitz Huber or logistic loss plus `kappa ||theta||_1`.
+- Regression or deterministic binary ridge-teacher targets; the binary mode
+  uses cross-entropy with logits and has global logit Lipschitz constant one.
+- Five or more widths and independent pool replicates.
+- Disjoint endpoint pairs within each replicate.
+- Fixed and moving empirical sublevels.
+- Direct, corrected DSS, and proof-inspired path constructions.
+- Corrected DSS is a documented modification of Freeman--Bruna Greedy DSS;
+  the proof-inspired construction is a separate compression/reference path.
+- Analytic continuous-path control for the proof-inspired construction and a
+  Lipschitz discretization certificate for DSS.
+- Dense-representation stress analysis that activates every endpoint
+  coordinate and forces a certified nontrivial cluster merge.
 
-## Experiment parameters
-Key parameters are set inside each experiment:
-- `widths`, `num_models`, `num_pairs`, `max_epochs_*`
-- `threshold_mode`:
-  - `"pairwise"`: the main mode used in the paper
-  - `"percentile"`: alternative mode with percentile sublevel sets
-- `normalize_first_layer_weights`: optional first-layer normalization
+## Repository map
 
-## Outputs
-The CSV files contain:
-- `gap_mean`, `gap_median`, `gap_max`, `hit_rate`, `n_pairs`
-- width and mode metadata
+- `theory_experiments/`: canonical NumPy implementation.
+- `configs/reviewer_smoke.json`: fast correctness smoke run.
+- `configs/reviewer_pilot.json`: pilot for budget and sensitivity checks.
+- `configs/reviewer_main_gpu_n*.json`: completed dimension-split frozen journal run.
+- `tests/`: domain, compression, path, certificate, and optimizer invariants.
+- `results/`: frozen primary, cross-loss, and dense-endpoint artifacts used by
+  the manuscript analyses.
+- `jamc_article/`: revised LaTeX source, compiled paper, supplement, generated
+  tables, vector figures, and resolved proof-audit notes.
+- `dss.py` and the two notebooks: legacy PyTorch implementation retained for
+  provenance and optional algorithm comparison.
+- `energy_gap_*_percentiles.csv`: historical pre-fix outputs; **not valid
+  evidence and not for citation**.
 
-## How to cite
-If you use this code or generated outputs, please cite:
+## Quick smoke run
 
-```bibtex
-@misc{baturin2026asymptoticsmoothinglipschitzloss,
-  title = {Asymptotic Smoothing of the Lipschitz Loss Landscape in Overparameterized One-Hidden-Layer ReLU Networks},
-  author = {Baturin, Saveliy},
-  year = {2026},
-  eprint = {2602.17596},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.LG},
-  url = {https://arxiv.org/abs/2602.17596}
-}
+```powershell
+python -m pip install -r requirements-experiment.txt
+python -m unittest discover -s tests -v
+python -m theory_experiments.run_experiment --config configs/reviewer_smoke.json --output results/reviewer_smoke
+python -m theory_experiments.plot_results --results results/reviewer_smoke
 ```
 
-## Reproducibility note
-For exact reproducibility, use the git commit/tag corresponding to the arXiv preprint version and the Zenodo archive DOI above.
+Every run writes model, pair, compression, summary, and rate CSV files; exact
+states and selected paths in compressed NPZ form; configuration, versions,
+commit, and interpretation warnings in `metadata.json`; and reviewer-facing
+figures.
 
-## Notes
-- RNG seeds are fixed in code.
-- In `threshold_mode="pairwise"` percentiles are not used.
-- `hit_rate` is the fraction of runs where DSS hits `max_depth`.
+## Frozen-result analysis
+
+The smoke directory verifies the software path only. The manuscript figures
+and numerical table are generated from the completed dimension-split main run:
+
+```powershell
+python -m theory_experiments.analyze_main_results `
+  --results-root results `
+  --analysis-dir results/reviewer_main_analysis `
+  --article-dir jamc_article
+```
+
+The command expects `reviewer_main_gpu_n1`, `reviewer_main_gpu_n2`, and
+`reviewer_main_gpu_n4` under `results/`. It validates the balanced 900-pair
+design, disjoint pairing within each replicate--width--level group, the
+first-layer ball constraint, and all 1200 compression inequalities before
+writing submission figures or tables.
+
+The loss-robustness analysis repeats that complete design with deterministic
+binary ridge-teacher labels and binary cross-entropy in logits:
+
+```powershell
+python -m theory_experiments.analyze_loss_robustness `
+  --results-root results `
+  --analysis-dir results/reviewer_loss_robustness `
+  --article-dir jamc_article
+```
+
+It expects `reviewer_cross_entropy_gpu_n1`, `n2`, and `n4`, applies the same
+design and invariant checks to both losses, and only then writes the comparison
+figure, LaTeX table, and machine-readable report.
+
+The dense-endpoint stress test is a deterministic post-processing analysis of
+the stored fixed-level Huber endpoints; it does not retrain the models:
+
+```powershell
+python -m theory_experiments.analyze_dense_endpoint_stress `
+  --results-root results `
+  --analysis-dir results/dense_endpoint_stress `
+  --article-dir jamc_article
+```
+
+It exact-splits trained atoms until all coordinates are active, applies a
+sublevel-calibrated tangent perturbation in dimensions 2 and 4, frees four
+coordinates by nearest-cluster merging, and verifies the individual
+diameter-based objective certificate on every record.
+
+## Citation
+
+The public frozen directories include their tabular records, metadata, and
+`states_and_paths.npz` archives; `REPRODUCIBILITY_ARCHIVE_MANIFEST.md` lists the
+exact evidentiary snapshot. The older Zenodo DOI predates this revision. Cite
+the revised manuscript and the repository commit used in an analysis. Do not
+cite the historical pre-fix CSV files.
