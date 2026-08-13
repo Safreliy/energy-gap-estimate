@@ -66,7 +66,7 @@ The main contributions are the following.
 \item We give a theorem-aligned computational diagnostic on finite seeded distributions. It verifies the parameter and compression invariants and compares direct interpolation, certified Dynamic String Sampling (DSS), and the proof-inspired path on 900 trained-endpoint pairs, with disjoint pairing inside each replicate--width--level group. We repeat the complete design with binary cross-entropy in logits and separately stress nontrivial merging on dense endpoint representations.
 \end{enumerate}
 
-The last result concerns the evolution of the approximation class with width; it is not a convergence theorem for gradient descent or a claim about training-time dynamics. Apart from the explicit one-dimensional result at $m\ge4$, the paper does not assert exact finite-width connectivity or make a statement about arbitrary deep networks.
+The asymptotic results concern the evolution of the approximation class with width; they are not convergence theorems for gradient descent or claims about training-time dynamics. Apart from the explicit one-dimensional result at $m\ge4$, the paper does not assert exact finite-width connectivity or make a statement about arbitrary deep networks.
 
 The remainder is organized as follows. Section~\ref{sec:related} positions the result within connectivity, mode-connectivity, and convex-reformulation work. Section~\ref{sec:setting} fixes the model and the barrier quantities. Section~\ref{sec:finite} proves the finite-width path theorem. Section~\ref{sec:rates} derives the fixed-level and approximation-driven rates. Section~\ref{sec:computational} reports the theorem-aligned computational diagnostic, and Section~\ref{sec:discussion} discusses scope and limitations.
 
@@ -80,7 +80,7 @@ Venturi, Bandeira, and Bruna \cite{Venturi2019} characterize spurious valleys of
 Nurisso, Leroy, and Vaccarino \cite{Nurisso2024} identify disconnected components of the quadric invariant sets imposed on shallow ReLU gradient flow by homogeneity. Their subsequent DAG-architecture analysis with Petri \cite{Nurisso2026} characterizes connectedness and singularities of the corresponding training-invariant learning spaces. This is complementary to our result: they study reachability constrained by gradient-flow conservation laws, whereas our paths range over the full constrained parameter sublevel and are not asserted to be optimization trajectories. Wu, Simsek, and Ged \cite{Wu2025} analyze directional stationary points, saddle escape, and width embeddings for shallow ReLU-like networks with empirical squared loss; our theorem instead concerns arbitrary sublevel endpoints and convex globally Lipschitz losses.
 
 \subsection{Approximate connectivity and trained solutions}
-Kuditipudi et al.\ \cite{Kuditipudi2019} explain low-cost piecewise-linear connections from dropout and noise stability of trained networks. Shevchenko and Mondelli \cite{ShevchenkoMondelli2020} make the width dependence explicit for SGD solutions, deriving vanishing barriers from increasing dropout stability. Ferbach et al.\ \cite{Ferbach2024} give a different probabilistic explanation: Wasserstein convergence of neuron empirical measures yields linear connectivity, after alignment, for sufficiently wide networks trained by SGD. These results condition on properties or distributions of trained solutions. Here no training algorithm appears in the theorem and the endpoints are arbitrary elements of a stated sublevel; the price is the narrower constrained shallow architecture and a generally nonlinear constructed path.
+Kuditipudi et al.~\cite{Kuditipudi2019} explain low-cost piecewise-linear connections from dropout and noise stability of trained networks. Shevchenko and Mondelli \cite{ShevchenkoMondelli2020} make the width dependence explicit for SGD solutions, deriving vanishing barriers from increasing dropout stability. Ferbach et al.~\cite{Ferbach2024} give a different probabilistic explanation: Wasserstein convergence of neuron empirical measures yields linear connectivity, after alignment, for sufficiently wide networks trained by SGD. These results condition on properties or distributions of trained solutions. Here no training algorithm appears in the theorem and the endpoints are arbitrary elements of a stated sublevel; the price is the narrower constrained shallow architecture and a generally nonlinear constructed path.
 
 \subsection{Convex reformulations}
 Convex reformulations expose additional structure in regularized two-layer ReLU training. Mishkin and Pilanci \cite{MishkinPilanci2023}, for example, characterized optimal sets and studied continuous regularization paths. Such results address optimal or stationary sets through a finite-data convex representation. The present analysis instead gives a direct path bound for expected risk, arbitrary sublevel endpoints, and a constrained dictionary of ReLU atoms.
@@ -509,9 +509,9 @@ this is already no larger than the common bound obtained below. Otherwise write 
 \widehat f_l(x)=\frac{a}{l}\sum_{j=1}^l
 \operatorname{sgn}(\theta_{I_j})\relu(w_{I_j}^\top x)
 \]
-has output $\ell_1$ norm at most $a$ and satisfies $\E_I\widehat f_l(x)=\Phi(x;W,\theta)$. Independence and $\relu(w^\top x)^2\le\norm{x}_2^2$ give
+has output $\ell_1$ norm at most $a$ and satisfies $\E_I\widehat f_l(x)=\Phi_q(x;W,\theta)$. Independence and $\relu(w^\top x)^2\le\norm{x}_2^2$ give
 \[
-\E_I\E_X\abs{\widehat f_l(X)-\Phi(X;W,\theta)}^2
+\E_I\E_X\abs{\widehat f_l(X)-\Phi_q(X;W,\theta)}^2
 \le \frac{a^2}{l}\E\norm{X}_2^2.
 \]
 By Cauchy--Schwarz and the $L$-Lipschitz property of the loss, the expected objective of the sampled network is at most
@@ -543,7 +543,7 @@ For $n\ge2$, take any integers $l_m\to\infty$ with $l_m/m\to0$, for example $l_m
 \le (e(l_m)-e_\infty)
 +C\left(\frac{l_m+1}{m}\right)^{1/(n-1)},
 \]
-where $C$ is uniform because $(\lambda_m)$ is bounded. Both terms tend to zero. If $n=1$, concatenate each endpoint with the nonincreasing paths from Lemmas~\ref{lem:sphericalize} and \ref{lem:two-ray}. Every resulting representation has at most two active neurons, and the same lemmas imply $e(l)=e(2)=e_\infty$ for $l\ge2$. Choosing reference width two in Theorem~\ref{thm:finite} then gives zero thickening for every $m\ge4$; reversing the second endpoint path completes the connection.
+where $C$ is uniform because $(\lambda_m)$ is bounded. Both terms tend to zero. If $n=1$, concatenate each endpoint with the nonincreasing paths from Lemmas~\ref{lem:sphericalize} and~\ref{lem:two-ray}. Every resulting representation has at most two active neurons, and the same lemmas imply $e(l)=e(2)=e_\infty$ for $l\ge2$. Choosing reference width two in Theorem~\ref{thm:finite} then gives zero thickening for every $m\ge4$; reversing the second endpoint path completes the connection.
 \end{proof}
 
 \begin{corollary}[Approximation rate implies barrier rate]\label{cor:transfer}
@@ -596,9 +596,17 @@ There is no contradiction between Theorem~\ref{thm:fixed-level} and Corollary~\r
 
 \subsection{Design and evidentiary scope}
 
-The numerical experiment instantiates exactly the bias-free model \eqref{eq:model}: every first-layer row is projected onto $B_2^n$, the $\ell_1$ penalty acts only on the output coefficients, and the data term is the globally Lipschitz Huber loss with parameter $0.25$. For each $n\in\{1,2,4\}$, a seeded finite distribution of 384 points in the unit ball is generated by a width-512 ridge-function teacher. The width grid is $m\in\{8,16,32,64,128\}$, with ten independent pool replicates and eight projected-proximal-Adam solutions per pool.
+The numerical experiment instantiates exactly the bias-free model \eqref{eq:model}: every first-layer row is projected onto $B_2^n$, and the $\ell_1$ penalty acts only on the output coefficients. Its regression loss is
+\[
+\mathcal L_\delta(y,u)=
+\begin{cases}\frac12r^2,&\abs{r}\le\delta,\\
+\delta(\abs{r}-\frac12\delta),&\abs{r}>\delta,
+\end{cases}
+\qquad r=u-y,
+\]
+with $\delta=0.25$; hence it is globally Lipschitz in $u$ with $L=0.25$. The NumPy evaluator and PyTorch optimizer implement this same normalization. For each $n\in\{1,2,4\}$, a seeded finite distribution of 384 points in the unit ball is generated by a width-512 ridge-function teacher. The width grid is $m\in\{8,16,32,64,128\}$, with ten independent pool replicates and eight projected-proximal-Adam solutions per pool.
 
-Within every replicate-width group we select three disjoint endpoint pairs at each of two levels. The fixed level is common across widths within a dimension. The moving level follows a balanced within-replicate order statistic plus the prespecified slack $0.02F(0)m^{-1/2}$. This gives 300 pair records per dimension and 900 pair records overall; pairing is disjoint within, but not across, the level groups. The pooled best optimized value $\widehat e(m)$ is only an upper proxy for $e(m)$; neither global optimizer convergence nor sampling of the entire sublevel is assumed.
+Within every replicate-width group we select three disjoint endpoint pairs at each of two levels. At a given width, the base level is the largest across replicates of the sixth-smallest objective among the eight trained models. The fixed level is the largest base level across widths within a dimension; the moving level is the width-specific base level plus the prespecified slack $0.02F(0)m^{-1/2}$. This gives 300 pair records per dimension and 900 pair records overall; pairing is disjoint within, but not across, the level groups. The pooled best optimized value $\widehat e(m)$ is only an upper proxy for $e(m)$; neither global optimizer convergence nor sampling of the entire sublevel is assumed. Further deterministic selection details and numerical tolerances are recorded in the supplementary notes.
 
 The two levels represent the two distinct statements proved in Section~\ref{sec:rates}. The common fixed threshold is a finite-sample analogue of the single $\lambda>e_\infty$ in Theorem~\ref{thm:fixed-level}; it isolates the geometric effect of increasing width while keeping the sublevel unchanged. The width-dependent threshold mimics the $\lambda_m$ regime of Corollary~\ref{cor:transfer}, in which the sublevel follows improving approximation values. Because the empirical order statistic is not a certified value of $e(m)$, this second row illustrates the moving-level question but does not verify the hypothesis $\lambda_m\ge e(m)$. Neither choice is required by the path-finding algorithms; both are retained because they diagnose different theoretical regimes.
 
@@ -623,7 +631,7 @@ Then $t\mapsto F_m(\gamma(t))$ is $K_\gamma$-Lipschitz. For $G\ge2$ and an equal
 +\frac{K_\gamma}{2(G-1)}.
 \label{eq:mesh-certificate}
 \end{equation}
-The maximum of \eqref{eq:mesh-certificate} over the final segments certifies the returned piecewise-linear path.
+The maximum of \eqref{eq:mesh-certificate} over the final segments certifies the returned piecewise-linear path in exact arithmetic.
 \end{lemma}
 
 \begin{proof}
@@ -634,6 +642,8 @@ $\abs{\theta_i(s)}\le\max_q\abs{\theta_i^q}$ and ReLU is one-Lipschitz. Summing 
 $\abs{\norm{\theta(t)}_1-\norm{\theta(s)}_1}\le\abs{t-s}\norm{\theta^1-\theta^0}_1$
 proves the first statement. Every $t$ lies within $1/(2(G-1))$ of a grid point, which proves \eqref{eq:mesh-certificate}.
 \end{proof}
+
+The certificate is analytic, but its reported terms are evaluated in double-precision floating-point arithmetic and are therefore understood up to floating-point error; interval arithmetic or outward rounding is not used.
 
 We compare three continuous paths. Direct parameter interpolation is evaluated on 513 points with a global-Lipschitz mesh correction. Our \emph{certified DSS} is a modified version of the Greedy Dynamic String Sampling algorithm introduced by Freeman and Bruna \cite{FreemanBruna2017}. Like their algorithm, it locates a high point on an interpolated segment, optimizes the inserted model down toward the prescribed level, and recursively refines the two resulting segments. We add adaptive grids, an analytic Lipschitz mesh correction, explicit depth/training-limit statuses, and a final maximum over all returned segments. Consequently, ``certified DSS'' below should not be read as an unmodified reproduction of their pseudocode.
 
@@ -663,20 +673,20 @@ Direct interpolation remains substantially higher. Over the same 720 pairs its u
 \label{fig:implementation-checks}
 \end{figure*}
 
-Figure~\ref{fig:implementation-checks} separates three checks that should not be conflated with the path gaps in Fig.~\ref{fig:path-diagnostics}. All 1200 trained endpoint records satisfy the first-layer constraint, with largest stored row norm $1+2.2\times10^{-16}$. All 1200 compression records satisfy the analytic increment bound. The largest observed-to-analytic increment ratios are $0.089$, $0.066$, and $0.045$ for dimensions one, two, and four. These ratios show that the worst-case covering estimate is conservative on the realized configurations, while validating the exact inequality used in the proof. At $m\ge32$, every trained endpoint already has active support at most $m-4$, so the prescribed four-coordinate compression is a no-op and its increment is zero. These zeros diagnose optimizer-induced sparsity; they are not an empirical estimate of the covering exponent.
+Figure~\ref{fig:implementation-checks} separates three checks that should not be conflated with the path gaps in Fig.~\ref{fig:path-diagnostics}. All 1200 trained endpoint records satisfy the first-layer constraint, with largest stored row norm $1+2.2\times10^{-16}$. All 1200 compression records satisfy the analytic increment bound. The largest observed-to-analytic increment ratios are $0.089$, $0.066$, and $0.045$ for dimensions one, two, and four. These ratios show that the worst-case covering estimate is conservative on the realized configurations and provide an implementation-level check of the analytic inequality. At $m\ge32$, every trained endpoint already has active support at most $m-4$, so the prescribed four-coordinate compression is a no-op and its increment is zero. These zeros diagnose optimizer-induced sparsity; they are not an empirical estimate of the covering exponent.
 
 To exercise cluster merging rather than inherit this proximal sparsity, we added a dense-representation stress test on the six fixed-level endpoints selected in every replicate--width group with $m\ge16$. Each endpoint is first sphericalized exactly and every active coefficient is split among duplicate copies until all $m$ coordinates are active. In dimensions two and four the copies are then given a deterministic tangent perturbation, choosing the largest prespecified amplitude that remains within the recorded level up to its $10^{-5}$ tolerance. A deterministic nearest-cluster rule merges enough coefficients to free four coordinates. The construction is representation-level: it controls the tested density while preserving the architecture and starting from the same trained functions, but it is not a new sample of optimizer outputs.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/dense_endpoint_stress.pdf}
-\caption{Dense-endpoint cluster-merging stress test on 720 fixed-level Huber endpoint representations at widths $m\ge16$. Before merging, all coordinates are active; at least four are removed in every record. (a) Median selected cluster diameter with the full range across 60 endpoints at each dimension and width. (b) Largest positive objective increment. (c) Largest ratio to the individual certificate $B_{\rm diam}=LD_X\norm{\theta}_1\operatorname{diam}(Q)$; the dash-dotted line marks one. The zero one-dimensional curves reflect the exact two-ray dictionary. This constructed diagnostic validates nontrivial merging and its inequality, not an asymptotic exponent.}
+\caption{Dense-endpoint cluster-merging stress test on 720 fixed-level Huber endpoint representations at widths $m\ge16$. Before merging, all coordinates are active; at least four are removed in every record. (a) Median selected cluster diameter with the full range across 60 endpoints at each dimension and width. (b) Largest positive objective increment. (c) Largest ratio to the individual certificate $B_{\rm diam}=LD_X\norm{\theta}_1\operatorname{diam}(Q)$; the dash-dotted line marks one. The zero one-dimensional curves reflect the exact two-ray dictionary. This constructed diagnostic checks nontrivial merging and its analytic inequality, not an asymptotic exponent.}
 \label{fig:dense-stress}
 \end{figure*}
 
 Figure~\ref{fig:dense-stress} removes at least four active coefficients in every one of the 720 dense records. No individual diameter certificate is violated. The largest positive merge increment is $1.3668\times10^{-2}$, attained at $n=4,m=16$, and the largest ratio to its certificate is $0.0396$. At $n=2$, the median selected diameter falls from $7.81\times10^{-2}$ at $m=16$ to $1.86\times10^{-5}$ at $m=128$; at $n=4$ it falls from $0.236$ to $0.109$. The finite construction and nearest-cluster selection differ from the worst-case spherical covering proof, so these decreases are reported only as mechanism checks, not as estimates of the rate in Theorem~\ref{thm:fixed-level}.
 
-Corrected DSS returns a finite path and a rigorous upper value even when recursion reaches its depth limit. For $m\ge16$, $56.5\%$ of its pair records are certified within the designated $10^{-5}$ tolerance; the remaining $43.5\%$ contain at least one unresolved final segment, but their reported gaps already include the segmentwise Lipschitz correction. The median certified DSS gap is $9.94\times10^{-6}$. This tolerance-scale plateau, together with the exact zeros of the constructive path, makes a log--log slope unstable: the finite-range fits are dominated by the $m=8$ to $m=16$ transition. We therefore do not use fitted exponents as evidence for the asymptotic rates.
+Corrected DSS returns a finite path and an analytically mesh-corrected upper value even when recursion reaches its depth limit. For $m\ge16$, $56.5\%$ of its pair records are certified within the designated $10^{-5}$ tolerance; the remaining $43.5\%$ contain at least one unresolved final segment, but their reported gaps already include the segmentwise Lipschitz correction. The median certified DSS gap is $9.94\times10^{-6}$. This tolerance-scale plateau, together with the exact zeros of the constructive path, makes a log--log slope unstable: the finite-range fits are dominated by the $m=8$ to $m=16$ transition. We therefore do not use fitted exponents as evidence for the asymptotic rates.
 
 \subsection{Loss robustness: binary cross-entropy}
 
@@ -731,7 +741,7 @@ The author is grateful to Prof. Dmitry A. Kamaev for valuable discussions and gu
 
 \textbf{Consent for Publication.} Not applicable.
 
-\textbf{Data Availability.} No external data are used in the theoretical results or the reported numerical protocol. The protocol generates versioned finite empirical distributions from a seeded wide ridge-function teacher and stores the realized inputs and targets with each run.
+\textbf{Data Availability.} No external data are used. The synthetic empirical distributions and frozen endpoint and path arrays underlying the reported numerical results are available in the versioned repository snapshot \href{https://github.com/Safreliy/energy-gap-estimate/tree/d645717a7f82658d913703700549e609c79b0b25}{commit \texttt{d645717}}.
 
 \textbf{Code Availability.} The theory-aligned experiment, invariant tests, versioned configurations, proof-audit notes, frozen result tables, and endpoint/path array archives are available at \url{https://github.com/Safreliy/energy-gap-estimate}. The corrected historical notebooks and standalone DSS implementation are isolated under \texttt{legacy/}; they are not used to generate the reported results. The repository contains the frozen canonical artifacts used to regenerate every reported table and figure.
 
