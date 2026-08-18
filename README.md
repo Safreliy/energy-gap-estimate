@@ -12,6 +12,10 @@ earlier complete-path stress pipeline retained for reproducibility.
 - [Online Resource 1](v2/article/ESM_1.pdf)
 - [Supplement source](v2/article/supplementary_reproducibility_notes.tex)
 
+The immutable submission snapshot is tagged
+[`jota-submission-2026-08-18`](https://github.com/Safreliy/energy-gap-estimate/tree/jota-submission-2026-08-18)
+and resolves to commit `ec3eef16b0421735442d557c851b2bdbc968d1c5`.
+
 The main result replaces the dimension-dependent covering step in the shallow
 ReLU path construction by fixed-dictionary atomic compression. It gives
 dimension-free inverse-square-root barrier decay at bounded moving levels and
