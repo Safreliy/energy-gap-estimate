@@ -1,5 +1,5 @@
 ﻿cff-version: 1.2.0
-title: "Theory-Aligned Loss-Landscape Experiments"
+title: "Dimension-Free Loss-Landscape Barrier Decay: Code and Experiments"
 message: "If you use this repository, cite the revised manuscript and the repository commit used in your analysis."
 type: software
 repository-code: "https://github.com/Safreliy/energy-gap-estimate"
@@ -11,8 +11,8 @@ preferred-citation:
   authors:
     - family-names: "Baturin"
       given-names: "Saveliy"
-  title: "From Approximation Rates to Loss-Landscape Barrier Decay in Shallow ReLU Networks"
-  journal: "Manuscript"
+  title: "Dimension-Free Loss-Landscape Barrier Decay via Atomic Self-Sparsification"
+  journal: "Manuscript prepared for the Journal of Optimization Theory and Applications"
   year: 2026
-  url: "https://github.com/Safreliy/energy-gap-estimate/blob/main/jamc_article/article.pdf"
+  url: "https://github.com/Safreliy/energy-gap-estimate/blob/main/v2/article/article_JOTA.pdf"
 license: "CC-BY-4.0"

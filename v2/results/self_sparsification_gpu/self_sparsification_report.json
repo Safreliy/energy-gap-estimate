@@ -1,0 +1,48 @@
+{
+  "status": "OBS mechanism diagnostic; not a sublevel supremum or barrier lower bound",
+  "config": {
+    "seed": 20260817,
+    "device": "cuda",
+    "allow_cpu_fallback": false,
+    "dtype": "float64",
+    "dimensions": [
+      2,
+      8,
+      32,
+      128
+    ],
+    "n_samples": 4096,
+    "teacher_width": 128,
+    "teacher_decay": 1.25,
+    "noise_scale": 0.02,
+    "source_width": 256,
+    "sample_widths": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "endpoints_per_dimension": 8,
+    "trials": 2048,
+    "ridge": 0.002,
+    "atomic_mass": 1.0,
+    "kappa": 0.01
+  },
+  "device": "cuda",
+  "torch_version": "2.8.0+cu129",
+  "cuda_device": "NVIDIA GeForce RTX 5070 Ti",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "elapsed_seconds": 2.3228397369384766,
+  "records": 192,
+  "max_mass_error": 0.0,
+  "max_support_excess": 0,
+  "max_exact_to_bound_ratio": 0.4671423172104173,
+  "max_balance_prediction_error": 4.440892098500626e-16,
+  "max_balance_penalty_error": 1.734723475976807e-18,
+  "q_scaled_exact_range": [
+    0.1682589869984544,
+    0.23357115860520866
+  ]
+}

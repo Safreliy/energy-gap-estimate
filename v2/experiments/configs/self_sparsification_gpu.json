@@ -1,0 +1,18 @@
+{
+  "seed": 20260817,
+  "device": "cuda",
+  "allow_cpu_fallback": false,
+  "dtype": "float64",
+  "dimensions": [2, 8, 32, 128],
+  "n_samples": 4096,
+  "teacher_width": 128,
+  "teacher_decay": 1.25,
+  "noise_scale": 0.02,
+  "source_width": 256,
+  "sample_widths": [4, 8, 16, 32, 64, 128],
+  "endpoints_per_dimension": 8,
+  "trials": 2048,
+  "ridge": 0.002,
+  "atomic_mass": 1.0,
+  "kappa": 0.01
+}

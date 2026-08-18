@@ -1,0 +1,21 @@
+{
+  "seed": 20260812,
+  "dimensions": [4],
+  "widths": [8, 16, 32, 64, 128],
+  "replicates": 10,
+  "models_per_width": 8,
+  "pairs_per_width": 3,
+  "dataset": {"n_samples": 384, "teacher_width": 512, "coefficient_decay": 1.35, "target_scale": 0.8, "target_mode": "binary"},
+  "objective": {"loss": "logistic", "kappa": 0.002},
+  "training": {"backend": "torch", "device": "cuda", "dtype": "float32", "epochs": 1800, "learning_rate": 0.015, "patience": 250, "min_delta": 1e-10},
+  "dss": {"max_depth": 7, "initial_grid_points": 33, "max_grid_points": 513, "final_grid_points": 513, "certificate_tolerance": 0.00001, "midpoint_training": {"epochs": 1000, "learning_rate": 0.01, "patience": 150}},
+  "level_selection_quantile": 0.75,
+  "moving_level_slack_fraction_of_zero": 0.02,
+  "moving_level_slack_exponent": 0.5,
+  "compression_reserve_neurons": 4,
+  "proof_bridge_widths": [2, 4, 8, 16, 32],
+  "fixed_proof_bridge_width": 4,
+  "proof_bridge_starts": 8,
+  "artifact_pairs_per_group": 1,
+  "bootstrap_repetitions": 5000
+}

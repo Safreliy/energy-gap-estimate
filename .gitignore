@@ -32,6 +32,14 @@ jamc_article/*.fls
 jamc_article/*.log
 jamc_article/*.out
 jamc_article/*.synctex.gz
+v2/article/*.aux
+v2/article/*.bbl
+v2/article/*.blg
+v2/article/*.fdb_latexmk
+v2/article/*.fls
+v2/article/*.log
+v2/article/*.out
+v2/article/*.synctex.gz
 
 # Submission administration and local internal notes
 jamc_article/*.txt
@@ -49,14 +57,43 @@ results/*
 !results/reviewer_loss_robustness/
 !results/dense_endpoint_stress/
 
+# v2 keeps only the frozen aggregate evidence used by the revised manuscript
+v2/results/*
+!v2/results/self_sparsification_gpu/
+!v2/results/self_sparsification_gpu/*.csv
+!v2/results/self_sparsification_gpu/*.json
+
 # Historical local visualization work is not part of the revised evidence
 /figures/
 /jmlr_acticle/
+/research_frontier/
 2_loss_landscape_article_visualization.ipynb
 loss_landscape_article_pipeline.py
 run_remote_main.cmd
 run_remote_main.ps1
 jamc_article/sn-article-template/
+
+# Local submission administration and superseded v2 build copies
+/v2/submission_package/
+/v2/submission_package_jota_20260817/
+/v2/jota_initial_submission_20260817/
+/v2/jota_source_bundle_20260817/
+/v2/cover_letter.txt
+/v2/JOTA_CHECKLIST.md
+/v2/PRE_SUBMISSION_CHECKLIST.md
+/v2/PROOF_AUDIT.md
+/v2/SUBMISSION_PACKAGE_README.md
+/v2/ONLINE_RESOURCE_1_CAPTION.txt
+
+# Keep the public v2 article tree limited to files used by the JOTA source
+/v2/article/article.pdf
+/v2/article/supplementary_reproducibility_notes.pdf
+/v2/article/sn-jnl.cls
+/v2/article/sn-mathphys-num.bst
+/v2/article/generated_loss_robustness_table.tex
+/v2/article/figures/*
+!/v2/article/figures/Fig1.pdf
+!/v2/article/figures/Fig2.pdf
 
 # Historical pre-audit tables remain in Git history but are not public evidence
 energy_gap_moons_percentiles.csv
