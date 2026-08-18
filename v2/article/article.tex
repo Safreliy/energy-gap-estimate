@@ -30,10 +30,12 @@
 \newcommand{\SubBar}{\mathfrak b}
 
 \raggedbottom
+\setlength{\emergencystretch}{2em}
 
 \begin{document}
 
-\title{Dimension-Free Loss-Landscape Barrier Decay via Atomic Self-Sparsification}
+\title{Dimension-Free Loss-Landscape Barrier\\
+Decay via Atomic Self-Sparsification}
 
 \author{Saveliy Baturin}
 
@@ -44,7 +46,10 @@ Russia\\
 
 \date{}
 
+\begingroup
+\hfuzz=0.5pt % svjour3 title-box rounding (0.37035 pt)
 \maketitle
+\endgroup
 
 \begin{abstract}
 We study pathwise connectivity of regularized-risk sublevel sets for shallow
@@ -88,10 +93,19 @@ but this rescaling changes an $\ell_1$ penalty imposed only on $a$. Consequently
 The main contributions are the following.
 \begin{enumerate}
 \item We prove an attained finite-width master bound and a zero-radius path principle that converts any penalty-compatible endpoint compression into a path through a common reference network.
-\item We introduce penalty-preserving fixed-dictionary self-sparsification. It yields $O(m^{-1/2})$ moving-level thickening for convex Lipschitz losses; a companion smallest-mass pruning argument gives $O(m^{-1})$ at every fixed level above $e_\infty$, uniformly over arbitrary sublevel endpoints and in every input dimension.
+\item We introduce penalty-preserving self-sparsification on each endpoint's
+fixed dictionary. It yields $O(m^{-1/2})$ moving-level thickening for convex
+Lipschitz losses. A smallest-mass pruning argument gives $O(m^{-1})$ at every
+fixed level above $e_\infty$, uniformly over arbitrary sublevel endpoints and
+in every input dimension.
 \item For losses with $\alpha$-H\"older derivative, unbiasedness cancels the first-order Taylor term and improves both objective approximation and moving-level barriers to $O(m^{-(1+\alpha)/2})$. The smooth endpoint includes half-squared error, Huber loss, and binary cross-entropy in logits.
-\item We define the raw-parameter barrier for ordinary two-layer quadratic weight decay and prove the same fixed- and moving-level rates through a filtered balancing retraction. As a topological interpretation, the barrier bound also controls the merge scale of reduced $H_0$ classes.
-\item We give theorem-aligned diagnostics that directly test random self-sparsification and smooth first-order cancellation up to input dimension 128, check the balancing lift, and retain a separate complete-path stress test.
+\item We define the raw-parameter barrier for two-layer quadratic weight decay
+and prove the same fixed- and moving-level rates through a filtered balancing
+retraction. As a topological interpretation, the barrier bound also controls
+the merge scale of reduced $H_0$ classes.
+\item We give theorem-aligned diagnostics for random self-sparsification and
+smooth first-order cancellation up to input dimension 128. They also check the
+balancing lift and retain a separate complete-path stress test.
 \end{enumerate}
 
 The asymptotic results concern the evolution of the approximation class with width; they are not convergence theorems for gradient descent or claims about training-time dynamics. The $q^{-1/2}$ and $q^{-1}$ fixed-dictionary function-approximation orders cannot be improved under only a bounded-atom envelope, but neither ReLU-dictionary nor barrier sharpness is claimed. Apart from the explicit one-dimensional and strong-regularization cases, the paper does not assert exact finite-width population connectivity or make a statement about ordinary dense deep networks.
@@ -248,9 +262,11 @@ For attainment, take a minimizing sequence. Its objective values are bounded abo
 \]
 gives the explicit joint bound
 \[
-\E\abs{\Phi_m(X;W_j,\theta_j)-\Phi_m(X;W,\theta)}
-\le D_X\norm{\theta_j-\theta}_1
+\begin{aligned}
+&\E\abs{\Phi_m(X;W_j,\theta_j)-\Phi_m(X;W,\theta)}\\
+&\qquad\le D_X\norm{\theta_j-\theta}_1
    +D_X\norm{\theta}_1\max_i\norm{w_{j,i}-w_i}_2,
+\end{aligned}
 \]
 because every first-layer row has norm at most one. The right-hand side tends to zero. In the Lipschitz regime this implies continuity of the expected risk.
 In the H\"older-smooth regime, the same predictor estimate holds in $L^2(P_X)$ and hence in $L^{1+\alpha}(P_X)$. The descent estimate \eqref{eq:holder-descent}, applied at zero, implies
@@ -321,7 +337,7 @@ rD_X\big((1-t)\norm{\beta}_1+t\norm{\gamma}_1\big).
 Lemma~\ref{lem:attainment} bounds both $\ell_1$ norms by $(\Lambda-\underline R)/\kappa$. Combining the Lipschitz estimate for $\mathcal L$ with \eqref{eq:extended-convex}, and using $\norm{\theta_t}_1\le(1-t)\norm{\beta}_1+t\norm{\gamma}_1$, proves \eqref{eq:bridge-bound}.
 \end{proof}
 
-\begin{theorem}[Finite-width connectivity bound]\label{thm:finite}
+\begin{theorem}[Finite-width bound]\label{thm:finite}
 Assume Assumption~\ref{ass:standing}. Let $\vartheta^A=(W_A,\theta_A)$ and $\vartheta^B=(W_B,\theta_B)$ belong to $\Omega_m(\lambda)$. For every integer $1\le l\le m$ and every $r\ge0$, there is a continuous path $\gamma_{l,r}$ in $\mathcal W_m$ joining the endpoints such that
 \begin{equation}
 \max_{t\in[0,1]}F_m(\gamma_{l,r}(t))
@@ -389,8 +405,13 @@ w_i(t)=c_i(t)w_i,
 \qquad
 \theta_i(t)=\theta_i/c_i(t).
 \]
-Then $1\le c_i(t)\le\rho_i^{-1}$, so $\norm{w_i(t)}_2\le1$. Positive homogeneity gives
-$\theta_i(t)\relu(w_i(t)^\top x)=\theta_i\relu(w_i^\top x)$ for every $x$, while $\abs{\theta_i(t)}$ is nonincreasing. The endpoint has first-layer norm one. Concatenating these finitely many rowwise paths proves the claim.
+Then $1\le c_i(t)\le\rho_i^{-1}$, so $\norm{w_i(t)}_2\le1$. Positive
+homogeneity gives, for every $x$,
+\[
+ \theta_i(t)\relu(w_i(t)^\top x)=\theta_i\relu(w_i^\top x),
+\]
+while $\abs{\theta_i(t)}$ is nonincreasing. The endpoint has first-layer norm
+one. Concatenating these finitely many rowwise paths proves the claim.
 \end{proof}
 
 \section{Dimension-Free Self-Sparsification and Barrier Rates}\label{sec:rates}
@@ -410,8 +431,10 @@ $u\mapsto\mathcal L(y,u)$ is nonnegative, convex, differentiable, and satisfies
  \le H\abs{u-v}^{\alpha}
  \label{eq:holder-gradient}
 \end{equation}
-for $P_Y$-almost every $y$, with the same constants $\alpha,H$.
-We also assume $\E[\mathcal L(Y,0)]<\infty$.
+for $P_Y$-almost every $y$, with the same constants $\alpha,H$. We also assume
+\[
+ \E[\mathcal L(Y,0)]<\infty.
+\]
 \end{assumption}
 
 Assumption~\ref{ass:holder} is an alternative to the global Lipschitz part of
@@ -428,16 +451,20 @@ The common geometric and moment assumptions remain unchanged.
 Fix $(W,\theta)\in\mathcal W_m$, put $a=\norm{\theta}_1$, and let
 $1\le q\le m$.  There is a random coefficient vector $\widehat\theta$ on the
 same first-layer matrix $W$ such that
-\begin{align}
- \norm{\widehat\theta}_0&\le q,
- &\norm{\widehat\theta}_1&=a,
- &\E_I\Phi_m(x;W,\widehat\theta)&=\Phi_m(x;W,\theta),
- \label{eq:sampling-invariants}\\
+\begin{equation}
+ \begin{gathered}
+  \norm{\widehat\theta}_0\le q,
+  \qquad \norm{\widehat\theta}_1=a,\\
+  \E_I\Phi_m(x;W,\widehat\theta)=\Phi_m(x;W,\theta).
+ \end{gathered}
+ \label{eq:sampling-invariants}
+\end{equation}
+\begin{equation}
  \E_I\norm{\Phi_m(\cdot;W,\widehat\theta)
  -\Phi_m(\cdot;W,\theta)}_{L^2(P_X)}^2
- &\le \frac{a^2D_X^2}{q}.&&
+ \le \frac{a^2D_X^2}{q}.
  \label{eq:sampling-variance}
-\end{align}
+\end{equation}
 Consequently, under Assumption~\ref{ass:standing}, one realization satisfies
 \begin{equation}
  F_m(W,\widehat\theta)
@@ -479,10 +506,12 @@ For the smooth case, integrating \eqref{eq:holder-gradient} gives
  +\frac{H}{1+\alpha}\abs{v-u}^{1+\alpha}.
  \label{eq:holder-descent}
 \end{equation}
-The linear term is integrable.  Indeed, applying
-\eqref{eq:holder-descent} to a step of length
-$(\abs{\partial_u\mathcal L}/H)^{1/\alpha}$ opposite to the derivative and
-using nonnegativity yields
+The linear term is integrable. Indeed, apply \eqref{eq:holder-descent} in the
+direction opposite to the derivative, with step length
+\[
+ s=\left(\frac{\abs{\partial_u\mathcal L}}{H}\right)^{1/\alpha},
+\]
+and use nonnegativity to obtain
 \[
  \abs{\partial_u\mathcal L(y,u)}^{(1+\alpha)/\alpha}
  \le \frac{1+\alpha}{\alpha}H^{1/\alpha}\mathcal L(y,u).
@@ -499,11 +528,14 @@ Taking the sampling expectation in \eqref{eq:holder-descent} and selecting one
 realization proves \eqref{eq:holder-sampling}.
 \end{proof}
 
-\begin{proposition}[Sharpness of the fixed-dictionary mechanism]\label{prop:compression-sharpness}
+\begin{proposition}[Fixed-dictionary sharpness]\label{prop:compression-sharpness}
 The orders in Lemma~\ref{lem:self-sparsification} cannot be improved uniformly
 using only a bounded $L^2$ atom envelope.  More precisely, for every $M$ let
-$X$ be uniform on $\{\sqrt M e_1,\ldots,\sqrt M e_M\}\subset\R^M$, take the
-ReLU atoms $\phi_i(x)=\relu(e_i^\top x)$, and put
+$X$ be uniform on
+\[
+ \{\sqrt M e_1,\ldots,\sqrt M e_M\}\subset\R^M.
+\]
+Take the ReLU atoms $\phi_i(x)=\relu(e_i^\top x)$, and put
 $f=M^{-1}\sum_{i=1}^M\phi_i$.  Every predictor $g$ supported on at most $q$
 of these same atoms, with arbitrary coefficients, satisfies
 \begin{equation}
@@ -520,8 +552,11 @@ therefore attain the orders $q^{-1}$ and $q^{-1/2}$.
 
 \begin{proof}
 The atoms form the coordinate dictionary
-$\phi_i(\sqrt M e_j)=\sqrt M\,\mathbf 1_{\{i=j\}}$, while
-$f(\sqrt M e_j)=M^{-1/2}$.  Every omitted coordinate of a $q$-term
+\[
+ \phi_i(\sqrt M e_j)=\sqrt M\,\mathbf 1_{\{i=j\}},
+ \qquad f(\sqrt M e_j)=M^{-1/2}.
+\]
+Every omitted coordinate of a $q$-term
 same-dictionary predictor consequently contributes $M^{-1}$ to the squared
 pointwise error and $M^{-1/2}$ to the absolute pointwise error. Averaging over
 the $M$ coordinates proves \eqref{eq:fixed-dictionary-lower}.
@@ -675,7 +710,9 @@ H\"older-smooth case use Theorem~\ref{thm:dimension-free-finite} with the same
 fixed $l_\lambda$ and $q=m-l_\lambda$.
 
 If $\kappa\ge LD_X$, Lipschitzness gives
-$R_m(0)\le R_m(W,\theta)+LD_X\norm{\theta}_1\le F_m(W,\theta)$.
+\[
+ R_m(0)\le R_m(W,\theta)+LD_X\norm{\theta}_1\le F_m(W,\theta).
+\]
 Thus the zero network is a global minimizer.  At fixed $W$, coefficient
 interpolation from $\theta$ to zero stays below the larger endpoint objective
 by convexity; after the coefficients vanish the rows of $W$ move freely.
@@ -763,7 +800,7 @@ infima are attained, the strict inequality may be replaced by a non-strict
 one.
 \end{remark}
 
-\begin{proposition}[Legacy ambient-cube certificate]\label{prop:cube-merge}
+\begin{proposition}[Ambient-cube certificate]\label{prop:cube-merge}
 Under Assumption~\ref{ass:standing}, the deterministic signed-cluster merge
 used by the original geometric construction satisfies
 \begin{equation}
